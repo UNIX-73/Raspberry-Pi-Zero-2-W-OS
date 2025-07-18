@@ -1,0 +1,3 @@
+#pragma once
+#define SYSTEM_CLOCK_FREQ 250000000
+#define MINI_UART_BAUDRATE 115200

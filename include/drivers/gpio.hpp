@@ -22,7 +22,7 @@ namespace GPIO
     reg32_ptr_t PUD_ADDR_PTR = GPIO_PTR(PUD_OFFSET);
     reg32_ptr_t PUDLOCK_ADDR_PTR = GPIO_PTR(PUDLOCK_OFFSET);
 
-    enum FSEL_OPTIONS
+    enum class FSEL_OPTIONS
     {
         INPUT = 0b000,
         OUTPUT = 0b001,
@@ -34,7 +34,7 @@ namespace GPIO
         ALT5 = 0b010
     };
 
-    enum PUD_OPTIONS
+    enum class PUD_OPTIONS
     {
         OFF = 0b00,
         PULL_DOWN = 0b01,

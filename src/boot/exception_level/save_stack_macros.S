@@ -43,4 +43,11 @@
     add sp, sp, #S_FRAME_SIZE
 .endm
 
+.macro wrap_vector label
+    save_stack_64
+    bl \label
+    load_stack_64
+.endm
+
+
 #endif

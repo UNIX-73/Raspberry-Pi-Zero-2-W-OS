@@ -4,7 +4,6 @@
 #include <boot/exception_level/exception_level.hpp>
 #include <boot/exception_level/el1/el1_core.hpp>
 #include <drivers/irq.hpp>
-#include <boot/exception_level/el1/handle_irq.hpp>
 
 extern "C" void kernel_main(void)
 {
@@ -43,4 +42,10 @@ extern "C" void kernel_main(void)
         if (x++ > 2 && read_el() != 1)
             switch_to_el1();
     }
+}
+
+extern "C" void irq_main(void)
+{
+    kernel::io::uart_io::sendln("Mini UART IRQ pending bit is SET");
+    return;
 }

@@ -19,9 +19,9 @@ switch_to_el1:
     msr ELR_EL2, x0
 
     // Configura VBAR_EL1 con la tabla de vectores
-    // bl el1_irq_init_vectors
+    bl el1_irq_init_vectors
 
-    // Habilita interrupciones IRQ
+    // Habilita interrupciones IRQ ("msr daifclr, #2")
     // bl irq_enable
 
     // Salta a EL1

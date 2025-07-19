@@ -38,4 +38,6 @@ void AUX::MINI_UART::init()
 
     // Enable interrupts
     *MU_IER_REG_ADDR_PTR = 0b1;
+
+    
 }

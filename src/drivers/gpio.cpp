@@ -11,7 +11,7 @@ void GPIO::set_function_select(uint32_t pin, FSEL_OPTIONS fn)
     uint32_t shift = (pin % 10) * 3; // 3 porque usa 3 bits para cada pin
 
     FSEL_ADDR_PTR[fsel_reg] &= ~(0b111 << shift);
-    FSEL_ADDR_PTR[fsel_reg] |= ((fn & 0b111) << shift);
+    FSEL_ADDR_PTR[fsel_reg] |= ((static_cast<uint32_t>(fn) & 0b111) << shift);
 }
 
 void GPIO::set_pull_up_down(uint32_t pin, PUD_OPTIONS pud)
@@ -23,7 +23,7 @@ void GPIO::set_pull_up_down(uint32_t pin, PUD_OPTIONS pud)
     uint32_t clk_reg = pin / 32;
     uint32_t bit_pos = pin % 32;
 
-    *PUD_ADDR_PTR = pud & 0b11;
+    *PUD_ADDR_PTR = static_cast<uint32_t>(pud) & 0b11;
 
     // Broadcom recomienda esperar unos ciclos
     for (volatile int i = 0; i < 300; i++)

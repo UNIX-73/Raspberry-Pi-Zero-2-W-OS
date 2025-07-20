@@ -5,9 +5,7 @@
 
 namespace kernel::apps::shell
 {
-    uint64_t run();
-
-    void handle_input_char(uint8_t c);
+    uint64_t run(uint64_t program_id);
 
     void reset();
 }

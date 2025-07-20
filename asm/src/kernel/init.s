@@ -26,10 +26,10 @@ Disassembly of section .text:
   40:	91000273 	add	x19, x19, #0x0
   44:	aa1303e0 	mov	x0, x19
   48:	94000000 	bl	0 <_ZN6kernel2io4uart7uart_io6sendlnEPKc>
-  4c:	5285a000 	mov	w0, #0x2d00                	// #11520
-  50:	72a02620 	movk	w0, #0x131, lsl #16
-  54:	d503201f 	nop
-  58:	d503201f 	nop
+  4c:	d2800020 	mov	x0, #0x1                   	// #1
+  50:	94000000 	bl	0 <_ZN6kernel4apps5shell3runEm>
+  54:	5285a000 	mov	w0, #0x2d00                	// #11520
+  58:	72a02620 	movk	w0, #0x131, lsl #16
   5c:	d503201f 	nop
   60:	d503201f 	nop
   64:	71000400 	subs	w0, w0, #0x1

@@ -90,8 +90,6 @@ namespace kernel::io::input_buffer
     {
         buffer[write_idx] = c;
         write_idx = (write_idx + 1) % INPUT_BUFFER_SIZE;
-
-        kernel::io::uart::uart_io::sendln("arrived");
     }
 
     static bool program_buffer_overflows(size_t buffer_len)
@@ -145,7 +143,7 @@ namespace kernel::io::input_buffer
     size_t ib_read_unread(uint64_t program_id, uint8_t *buf, size_t max_len)
     {
         if (program_buffer_overflows(max_len))
-            return -1;
+            return 0;
 
         size_t program_idx = find_subscribed_program_idx(program_id);
         if (program_idx == -1)

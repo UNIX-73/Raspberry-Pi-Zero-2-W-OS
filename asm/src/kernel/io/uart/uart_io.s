@@ -22,14 +22,14 @@ Disassembly of section .text:
   38:	d65f03c0 	ret
   3c:	d503201f 	nop
 
-0000000000000040 <_ZN6kernel2io4uart7uart_io8new_lineEv>:
+0000000000000040 <_ZN6kernel2io4uart7uart_io7newlineEv>:
   40:	d28a0a81 	mov	x1, #0x5054                	// #20564
   44:	f2a7e421 	movk	x1, #0x3f21, lsl #16
   48:	b9400020 	ldr	w0, [x1]
-  4c:	37280080 	tbnz	w0, #5, 5c <_ZN6kernel2io4uart7uart_io8new_lineEv+0x1c>
+  4c:	37280080 	tbnz	w0, #5, 5c <_ZN6kernel2io4uart7uart_io7newlineEv+0x1c>
   50:	d503201f 	nop
   54:	b9400020 	ldr	w0, [x1]
-  58:	362fffc0 	tbz	w0, #5, 50 <_ZN6kernel2io4uart7uart_io8new_lineEv+0x10>
+  58:	362fffc0 	tbz	w0, #5, 50 <_ZN6kernel2io4uart7uart_io7newlineEv+0x10>
   5c:	d28a0800 	mov	x0, #0x5040                	// #20544
   60:	52800141 	mov	w1, #0xa                   	// #10
   64:	f2a7e420 	movk	x0, #0x3f21, lsl #16

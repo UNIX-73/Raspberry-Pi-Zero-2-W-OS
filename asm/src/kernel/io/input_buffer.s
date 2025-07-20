@@ -73,67 +73,67 @@ Disassembly of section .text:
 0000000000000100 <_ZN6kernel2io12input_buffer12ib_push_charEh>:
  100:	90000001 	adrp	x1, 0 <_ZN6kernel2io12input_buffer9subscribeEm>
  104:	91000021 	add	x1, x1, #0x0
- 108:	91034024 	add	x4, x1, #0xd0
- 10c:	90000003 	adrp	x3, 0 <_ZN6kernel2io12input_buffer9subscribeEm>
- 110:	39430022 	ldrb	w2, [x1, #192]
- 114:	11000445 	add	w5, w2, #0x1
- 118:	39030025 	strb	w5, [x1, #192]
- 11c:	38224880 	strb	w0, [x4, w2, uxtw]
- 120:	91000060 	add	x0, x3, #0x0
- 124:	14000000 	b	0 <_ZN6kernel2io4uart7uart_io6sendlnEPKc>
+ 108:	91034023 	add	x3, x1, #0xd0
+ 10c:	39430022 	ldrb	w2, [x1, #192]
+ 110:	11000444 	add	w4, w2, #0x1
+ 114:	39030024 	strb	w4, [x1, #192]
+ 118:	38224860 	strb	w0, [x3, w2, uxtw]
+ 11c:	d65f03c0 	ret
 
-0000000000000128 <_ZN6kernel2io12input_buffer11ib_get_dataEPhm>:
- 128:	f120003f 	cmp	x1, #0x800
- 12c:	54000208 	b.hi	16c <_ZN6kernel2io12input_buffer11ib_get_dataEPhm+0x44>  // b.pmore
- 130:	90000002 	adrp	x2, 0 <_ZN6kernel2io12input_buffer9subscribeEm>
- 134:	91000042 	add	x2, x2, #0x0
- 138:	91034044 	add	x4, x2, #0xd0
- 13c:	8b010003 	add	x3, x0, x1
- 140:	39430042 	ldrb	w2, [x2, #192]
- 144:	cb010042 	sub	x2, x2, x1
- 148:	92402842 	and	x2, x2, #0x7ff
- 14c:	b40000e1 	cbz	x1, 168 <_ZN6kernel2io12input_buffer11ib_get_dataEPhm+0x40>
- 150:	38626881 	ldrb	w1, [x4, x2]
- 154:	91000442 	add	x2, x2, #0x1
- 158:	38001401 	strb	w1, [x0], #1
- 15c:	92402842 	and	x2, x2, #0x7ff
- 160:	eb03001f 	cmp	x0, x3
- 164:	54ffff61 	b.ne	150 <_ZN6kernel2io12input_buffer11ib_get_dataEPhm+0x28>  // b.any
- 168:	d65f03c0 	ret
- 16c:	90000000 	adrp	x0, 0 <_ZN6kernel2io12input_buffer9subscribeEm>
- 170:	91000000 	add	x0, x0, #0x0
- 174:	14000000 	b	0 <_ZN6kernel2io4uart7uart_io6sendlnEPKc>
- 178:	d503201f 	nop
- 17c:	d503201f 	nop
+0000000000000120 <_ZN6kernel2io12input_buffer11ib_get_dataEPhm>:
+ 120:	f120003f 	cmp	x1, #0x800
+ 124:	54000208 	b.hi	164 <_ZN6kernel2io12input_buffer11ib_get_dataEPhm+0x44>  // b.pmore
+ 128:	90000002 	adrp	x2, 0 <_ZN6kernel2io12input_buffer9subscribeEm>
+ 12c:	91000042 	add	x2, x2, #0x0
+ 130:	91034044 	add	x4, x2, #0xd0
+ 134:	8b010003 	add	x3, x0, x1
+ 138:	39430042 	ldrb	w2, [x2, #192]
+ 13c:	cb010042 	sub	x2, x2, x1
+ 140:	92402842 	and	x2, x2, #0x7ff
+ 144:	b40000e1 	cbz	x1, 160 <_ZN6kernel2io12input_buffer11ib_get_dataEPhm+0x40>
+ 148:	38626881 	ldrb	w1, [x4, x2]
+ 14c:	91000442 	add	x2, x2, #0x1
+ 150:	38001401 	strb	w1, [x0], #1
+ 154:	92402842 	and	x2, x2, #0x7ff
+ 158:	eb03001f 	cmp	x0, x3
+ 15c:	54ffff61 	b.ne	148 <_ZN6kernel2io12input_buffer11ib_get_dataEPhm+0x28>  // b.any
+ 160:	d65f03c0 	ret
+ 164:	90000000 	adrp	x0, 0 <_ZN6kernel2io12input_buffer9subscribeEm>
+ 168:	91000000 	add	x0, x0, #0x0
+ 16c:	14000000 	b	0 <_ZN6kernel2io4uart7uart_io6sendlnEPKc>
 
-0000000000000180 <_ZN6kernel2io12input_buffer14ib_read_unreadEmPhm>:
- 180:	a9be7bfd 	stp	x29, x30, [sp, #-32]!
- 184:	910003fd 	mov	x29, sp
- 188:	f120005f 	cmp	x2, #0x800
- 18c:	54000628 	b.hi	250 <_ZN6kernel2io12input_buffer14ib_read_unreadEmPhm+0xd0>  // b.pmore
- 190:	a90153f3 	stp	x19, x20, [sp, #16]
- 194:	aa0203f4 	mov	x20, x2
- 198:	90000002 	adrp	x2, 0 <_ZN6kernel2io12input_buffer9subscribeEm>
- 19c:	91000042 	add	x2, x2, #0x0
- 1a0:	aa0103f3 	mov	x19, x1
- 1a4:	aa0203e3 	mov	x3, x2
- 1a8:	d2800001 	mov	x1, #0x0                   	// #0
- 1ac:	f9400064 	ldr	x4, [x3]
- 1b0:	91006063 	add	x3, x3, #0x18
- 1b4:	eb04001f 	cmp	x0, x4
- 1b8:	54000220 	b.eq	1fc <_ZN6kernel2io12input_buffer14ib_read_unreadEmPhm+0x7c>  // b.none
- 1bc:	91000421 	add	x1, x1, #0x1
- 1c0:	f100203f 	cmp	x1, #0x8
- 1c4:	54ffff41 	b.ne	1ac <_ZN6kernel2io12input_buffer14ib_read_unreadEmPhm+0x2c>  // b.any
- 1c8:	90000000 	adrp	x0, 0 <_ZN6kernel2io12input_buffer9subscribeEm>
- 1cc:	91000000 	add	x0, x0, #0x0
- 1d0:	94000000 	bl	0 <_ZN6kernel2io4uart7uart_io6sendlnEPKc>
- 1d4:	aa1303e1 	mov	x1, x19
- 1d8:	8b140260 	add	x0, x19, x20
- 1dc:	b4000094 	cbz	x20, 1ec <_ZN6kernel2io12input_buffer14ib_read_unreadEmPhm+0x6c>
+0000000000000170 <_ZN6kernel2io12input_buffer14ib_read_unreadEmPhm>:
+ 170:	a9be7bfd 	stp	x29, x30, [sp, #-32]!
+ 174:	910003fd 	mov	x29, sp
+ 178:	f120005f 	cmp	x2, #0x800
+ 17c:	540006a8 	b.hi	250 <_ZN6kernel2io12input_buffer14ib_read_unreadEmPhm+0xe0>  // b.pmore
+ 180:	a90153f3 	stp	x19, x20, [sp, #16]
+ 184:	aa0203f4 	mov	x20, x2
+ 188:	90000002 	adrp	x2, 0 <_ZN6kernel2io12input_buffer9subscribeEm>
+ 18c:	91000042 	add	x2, x2, #0x0
+ 190:	aa0103f3 	mov	x19, x1
+ 194:	aa0203e3 	mov	x3, x2
+ 198:	d2800001 	mov	x1, #0x0                   	// #0
+ 19c:	d503201f 	nop
+ 1a0:	f9400064 	ldr	x4, [x3]
+ 1a4:	91006063 	add	x3, x3, #0x18
+ 1a8:	eb04001f 	cmp	x0, x4
+ 1ac:	54000280 	b.eq	1fc <_ZN6kernel2io12input_buffer14ib_read_unreadEmPhm+0x8c>  // b.none
+ 1b0:	91000421 	add	x1, x1, #0x1
+ 1b4:	f100203f 	cmp	x1, #0x8
+ 1b8:	54ffff41 	b.ne	1a0 <_ZN6kernel2io12input_buffer14ib_read_unreadEmPhm+0x30>  // b.any
+ 1bc:	90000000 	adrp	x0, 0 <_ZN6kernel2io12input_buffer9subscribeEm>
+ 1c0:	91000000 	add	x0, x0, #0x0
+ 1c4:	94000000 	bl	0 <_ZN6kernel2io4uart7uart_io6sendlnEPKc>
+ 1c8:	aa1303e1 	mov	x1, x19
+ 1cc:	8b140260 	add	x0, x19, x20
+ 1d0:	b40000f4 	cbz	x20, 1ec <_ZN6kernel2io12input_buffer14ib_read_unreadEmPhm+0x7c>
+ 1d4:	d503201f 	nop
+ 1d8:	d503201f 	nop
+ 1dc:	d503201f 	nop
  1e0:	3800143f 	strb	wzr, [x1], #1
  1e4:	eb00003f 	cmp	x1, x0
- 1e8:	54ffffc1 	b.ne	1e0 <_ZN6kernel2io12input_buffer14ib_read_unreadEmPhm+0x60>  // b.any
+ 1e8:	54ffffc1 	b.ne	1e0 <_ZN6kernel2io12input_buffer14ib_read_unreadEmPhm+0x70>  // b.any
  1ec:	a94153f3 	ldp	x19, x20, [sp, #16]
  1f0:	d2800000 	mov	x0, #0x0                   	// #0
  1f4:	a8c27bfd 	ldp	x29, x30, [sp], #32
@@ -146,7 +146,7 @@ Disassembly of section .text:
  210:	f9400805 	ldr	x5, [x0, #16]
  214:	aa0503e2 	mov	x2, x5
  218:	eb05007f 	cmp	x3, x5
- 21c:	54000120 	b.eq	240 <_ZN6kernel2io12input_buffer14ib_read_unreadEmPhm+0xc0>  // b.none
+ 21c:	54000120 	b.eq	240 <_ZN6kernel2io12input_buffer14ib_read_unreadEmPhm+0xd0>  // b.none
  220:	38626882 	ldrb	w2, [x4, x2]
  224:	38001422 	strb	w2, [x1], #1
  228:	f9400802 	ldr	x2, [x0, #16]
@@ -154,15 +154,15 @@ Disassembly of section .text:
  230:	92402842 	and	x2, x2, #0x7ff
  234:	f9000802 	str	x2, [x0, #16]
  238:	eb02007f 	cmp	x3, x2
- 23c:	54ffff21 	b.ne	220 <_ZN6kernel2io12input_buffer14ib_read_unreadEmPhm+0xa0>  // b.any
+ 23c:	54ffff21 	b.ne	220 <_ZN6kernel2io12input_buffer14ib_read_unreadEmPhm+0xb0>  // b.any
  240:	cb050060 	sub	x0, x3, x5
  244:	a94153f3 	ldp	x19, x20, [sp, #16]
  248:	92402800 	and	x0, x0, #0x7ff
- 24c:	17ffffea 	b	1f4 <_ZN6kernel2io12input_buffer14ib_read_unreadEmPhm+0x74>
+ 24c:	17ffffea 	b	1f4 <_ZN6kernel2io12input_buffer14ib_read_unreadEmPhm+0x84>
  250:	90000000 	adrp	x0, 0 <_ZN6kernel2io12input_buffer9subscribeEm>
  254:	91000000 	add	x0, x0, #0x0
  258:	94000000 	bl	0 <_ZN6kernel2io4uart7uart_io6sendlnEPKc>
- 25c:	17ffffe5 	b	1f0 <_ZN6kernel2io12input_buffer14ib_read_unreadEmPhm+0x70>
+ 25c:	17ffffe5 	b	1f0 <_ZN6kernel2io12input_buffer14ib_read_unreadEmPhm+0x80>
 
 0000000000000260 <_ZN6kernel2io12input_buffer8ib_resetEv>:
  260:	90000002 	adrp	x2, 0 <_ZN6kernel2io12input_buffer9subscribeEm>

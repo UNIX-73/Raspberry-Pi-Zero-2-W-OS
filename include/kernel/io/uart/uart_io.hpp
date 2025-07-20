@@ -5,7 +5,7 @@ namespace kernel::io::uart::uart_io
 {
     void putchar(char c);
 
-    void new_line();
+    void newline();
     void return_carriage();
 
     void send(const char *s);

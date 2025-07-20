@@ -12,7 +12,7 @@ namespace kernel::io::uart::uart_io
         AUX::MINI_UART::write(c);
     }
 
-    void new_line()
+    void newline()
     {
         putchar('\n');
     }
@@ -31,7 +31,7 @@ namespace kernel::io::uart::uart_io
     void sendln(const char *s)
     {
         send(s);
-        new_line();
+        newline();
         return_carriage();
     }
 

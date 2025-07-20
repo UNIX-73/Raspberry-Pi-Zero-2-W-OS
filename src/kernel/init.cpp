@@ -4,6 +4,7 @@
 #include <drivers/aux/mini_uart.hpp>
 #include <boot/exception_level/el1/el1_core.hpp>
 #include <kernel/io/uart/uart_io.hpp>
+#include <kernel/apps/shell/shell.hpp>
 
 namespace kernel
 {
@@ -27,6 +28,7 @@ namespace kernel
         {
             kernel::io::uart::uart_io::sendln("Hello world");
 
+            kernel::apps::shell::run(0x00000001);
             for (int i = 0; i < 20000000; i++)
             {
                 asm("nop");

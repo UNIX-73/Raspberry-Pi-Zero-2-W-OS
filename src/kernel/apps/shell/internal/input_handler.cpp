@@ -1,4 +1,5 @@
 #include <kernel/apps/shell/internal/input_handler.hpp>
+#include <kernel/apps/shell/internal/state.hpp>
 
 namespace kernel::apps::shell::internal::input_handler
 {
@@ -19,7 +20,7 @@ namespace kernel::apps::shell::internal::input_handler
 
     bool buffer_is_full()
     {
-        return (input_idx >= kernel::apps::shell::INPUT_BUFFER_SIZE);
+        return (state::input_idx >= state::INPUT_BUFFER_SIZE);
     }
 
     void push_char(uint8_t c)
@@ -27,6 +28,6 @@ namespace kernel::apps::shell::internal::input_handler
         if (buffer_is_full())
             return;
 
-        input_buffer[input_idx++] = c;
+        state::input_buffer[state::input_idx++] = c;
     }
 }

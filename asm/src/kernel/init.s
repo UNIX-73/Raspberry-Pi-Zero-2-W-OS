@@ -25,7 +25,7 @@ Disassembly of section .text:
   3c:	90000013 	adrp	x19, 0 <_ZN6kernel12init_devicesEv>
   40:	91000273 	add	x19, x19, #0x0
   44:	aa1303e0 	mov	x0, x19
-  48:	94000000 	bl	0 <_ZN6kernel2io7uart_io6sendlnEPKc>
+  48:	94000000 	bl	0 <_ZN6kernel2io4uart7uart_io6sendlnEPKc>
   4c:	5285a000 	mov	w0, #0x2d00                	// #11520
   50:	72a02620 	movk	w0, #0x131, lsl #16
   54:	d503201f 	nop

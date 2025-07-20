@@ -1,20 +1,8 @@
 #pragma once
+#include <stdint.h>
 
-namespace kernel::apps::shell::internal::shell_program_interface
+namespace kernel::apps::shell::shell_program_interface
 {
-    struct ShellProgramAPI
-    {
-        // Input
-        uint8_t (*input_char)();
-
-        // Output
-        void (*print)(const char *);
-        void (*newline)();
-        void (*cls)();
-
-        // Control
-        void (*exit)(shell_program_result);
-    };
 
     enum class shell_program_result
     {
@@ -23,6 +11,21 @@ namespace kernel::apps::shell::internal::shell_program_interface
         PANIC,
     };
 
-    using shell_program_ptr = shell_program_result (*)(ShellProgramAPI);
+    struct ShellProgramAPI;
+    typedef shell_program_result (*shell_program_ptr)(ShellProgramAPI);
 
+    // API
+    struct ShellProgramAPI
+    {
+        // Input
+        uint8_t (*input_char)();
+
+        // Output
+        void (*print)(const uint8_t *);
+        void (*newline)();
+        void (*cls)();
+
+        // Control
+        void (*exit)(shell_program_result);
+    };
 }

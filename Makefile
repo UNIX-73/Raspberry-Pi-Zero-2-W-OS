@@ -12,7 +12,9 @@ OBJDUMP  := $(CROSS)objdump
 # ============================
 # Flags
 # ============================
-CFLAGS   := -Wall -Wextra -ffreestanding -O2 -nostdlib -nostartfiles
+DEFINES := -DDEBUG
+
+CFLAGS   := $(DEFINES) -Wall -Wextra -ffreestanding -O2 -nostdlib -nostartfiles
 CXXFLAGS := $(CFLAGS) -fno-rtti -fno-exceptions -fno-threadsafe-statics -fno-use-cxa-atexit
 INCLUDE_DIRS := -Iinclude
 

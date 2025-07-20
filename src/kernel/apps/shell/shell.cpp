@@ -7,7 +7,7 @@ static bool init = false;
 
 namespace kernel::apps::shell
 {
-    uint32_t run()
+    uint64_t run()
     {
         init = true;
         return 0;

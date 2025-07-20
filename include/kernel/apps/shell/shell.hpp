@@ -5,7 +5,7 @@
 
 namespace kernel::apps::shell
 {
-    uint32_t run();
+    uint64_t run();
 
     void handle_input_char(uint8_t c);
 

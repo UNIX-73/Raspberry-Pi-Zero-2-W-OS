@@ -3,7 +3,7 @@
 #include <drivers/irq.hpp>
 #include <drivers/aux/mini_uart.hpp>
 #include <boot/exception_level/el1/el1_core.hpp>
-#include <kernel/io/uart_io.hpp>
+#include <kernel/io/uart/uart_io.hpp>
 
 namespace kernel
 {
@@ -25,7 +25,7 @@ namespace kernel
     {
         while (1)
         {
-            kernel::io::uart_io::sendln("Hello world");
+            kernel::io::uart::uart_io::sendln("Hello world");
 
             for (int i = 0; i < 20000000; i++)
             {

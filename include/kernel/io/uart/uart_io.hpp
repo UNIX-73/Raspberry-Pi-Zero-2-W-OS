@@ -1,7 +1,7 @@
 #pragma once
-#include <drivers/aux/mini_uart.hpp>
+#include <stdint.h>
 
-namespace kernel::io::uart_io
+namespace kernel::io::uart::uart_io
 {
     void putchar(char c);
 
@@ -12,5 +12,4 @@ namespace kernel::io::uart_io
     void sendln(const char *s);
 
     char uint32_to_char(uint32_t v);
-
 }

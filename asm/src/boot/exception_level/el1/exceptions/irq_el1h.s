@@ -18,10 +18,10 @@ Disassembly of section .text:
   28:	f9000bf3 	str	x19, [sp, #16]
   2c:	91000000 	add	x0, x0, #0x0
   30:	b9400033 	ldr	w19, [x1]
-  34:	94000000 	bl	0 <_ZN6kernel2io7uart_io4sendEPKc>
+  34:	94000000 	bl	0 <_ZN6kernel2io4uart7uart_io4sendEPKc>
   38:	2a1303e0 	mov	w0, w19
-  3c:	94000000 	bl	0 <_ZN6kernel2io7uart_io7putcharEc>
-  40:	94000000 	bl	0 <_ZN6kernel2io7uart_io8new_lineEv>
+  3c:	94000000 	bl	0 <_ZN6kernel2io4uart7uart_io7putcharEc>
+  40:	94000000 	bl	0 <_ZN6kernel2io4uart7uart_io8new_lineEv>
   44:	f9400bf3 	ldr	x19, [sp, #16]
   48:	a8c27bfd 	ldp	x29, x30, [sp], #32
-  4c:	14000000 	b	0 <_ZN6kernel2io7uart_io15return_carriageEv>
+  4c:	14000000 	b	0 <_ZN6kernel2io4uart7uart_io15return_carriageEv>

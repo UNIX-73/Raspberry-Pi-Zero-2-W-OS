@@ -15,12 +15,15 @@ namespace kernel
         {
             switch_to_el1(); // Sale de esta fn y vuelve a kernel main
         }
-        
+
         if (read_el() == 1)
         {
             irq_enable(); // msr daifclr, #2
             IRQ::enable_irq(IRQ::IRQ_OPTIONS::MINI_UART);
             AUX::MINI_UART::init();
+
+            GPIO::set_function_select(21, GPIO::FSEL_OPTIONS::OUTPUT);
+            GPIO::set_pin(21);
         }
     }
 

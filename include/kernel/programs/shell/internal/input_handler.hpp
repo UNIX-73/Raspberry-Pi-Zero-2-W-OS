@@ -1,7 +1,7 @@
 #pragma once
-#include <kernel/apps/shell/shell.hpp>
+#include <kernel/programs/shell/shell.hpp>
 
-namespace kernel::apps::shell::internal::input_handler
+namespace kernel::programs::shell::internal::input_handler
 {
     void handle_input_char(uint8_t c);
 
@@ -15,4 +15,6 @@ namespace kernel::apps::shell::internal::input_handler
     void push_char(uint8_t c);
 
     void send_to_frontend(uint8_t c);
-} // namespace kernel::apps::shell::internal
+    void send_to_frontend(const char *str);
+
+} // namespace kernel::programs::shell::internal

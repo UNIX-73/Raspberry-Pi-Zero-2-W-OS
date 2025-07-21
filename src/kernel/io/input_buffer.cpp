@@ -108,7 +108,7 @@ namespace kernel::io::input_buffer
     /**
      * @returns -1 if not found or the idx
      */
-    static inline size_t find_subscribed_program_idx(uint64_t program_id)
+    static inline int32_t find_subscribed_program_idx(uint64_t program_id)
     {
         int32_t program_idx = -1;
         for (size_t i = 0; i < MAX_SUBSCRIBED_PROGRAMS; i++)
@@ -145,8 +145,8 @@ namespace kernel::io::input_buffer
         if (program_buffer_overflows(max_len))
             return 0;
 
-        size_t program_idx = find_subscribed_program_idx(program_id);
-        if (program_idx == -1)
+        int32_t program_idx = find_subscribed_program_idx(program_id);
+        if (program_idx < 0)
         {
 #ifdef DEBUG
             kernel::io::uart::uart_io::sendln("\n\r!Program was not subscribed to input");
@@ -171,7 +171,7 @@ namespace kernel::io::input_buffer
 
     void ib_reset()
     {
-        for (uint32_t i = 0; i < INPUT_BUFFER_SIZE; i++)
+        for (uint32_t i = 0; i < MAX_SUBSCRIBED_PROGRAMS; i++)
         {
             buffer[i] = 0;
             subscribed_programs[i] = {};

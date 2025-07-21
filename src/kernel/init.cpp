@@ -4,7 +4,8 @@
 #include <drivers/aux/mini_uart.hpp>
 #include <boot/exception_level/el1/el1_core.hpp>
 #include <kernel/io/uart/uart_io.hpp>
-#include <kernel/apps/shell/shell.hpp>
+#include <kernel/programs/program_registry.hpp>
+#include <drivers/gpio.hpp>
 
 namespace kernel
 {
@@ -14,7 +15,8 @@ namespace kernel
         {
             switch_to_el1(); // Sale de esta fn y vuelve a kernel main
         }
-        else
+        
+        if (read_el() == 1)
         {
             irq_enable(); // msr daifclr, #2
             IRQ::enable_irq(IRQ::IRQ_OPTIONS::MINI_UART);
@@ -28,7 +30,8 @@ namespace kernel
         {
             kernel::io::uart::uart_io::sendln("Hello world");
 
-            kernel::apps::shell::run(0x00000001);
+            kernel::programs::registry::find_by_name("shell")->entry(0x00000001, "");
+
             for (int i = 0; i < 20000000; i++)
             {
                 asm("nop");

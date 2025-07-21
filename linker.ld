@@ -33,15 +33,15 @@ SECTIONS {
     . = ALIGN(16);
 
     __stack_el0_bottom = .;
-    . += 0x4000;
+    . += 0x500000;
     __stack_el0_top = .;
 
     __stack_el1_bottom = .;
-    . += 0x4000;
+    . += 0x500000;
     __stack_el1_top = .;
 
     __stack_el2_bottom = .;
-    . += 0x4000;
+    . += 0x500000;
     __stack_el2_top = .;
 
     __stack_el3_bottom = .;

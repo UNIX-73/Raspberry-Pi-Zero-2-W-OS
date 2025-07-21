@@ -1,16 +1,16 @@
-#include <kernel/apps/shell/shell.hpp>
-#include <kernel/apps/shell/internal/input_handler.hpp>
-#include <kernel/apps/shell/internal/state.hpp>
+#include <kernel/programs/shell/shell.hpp>
+#include <kernel/programs/shell/internal/input_handler.hpp>
+#include <kernel/programs/shell/internal/state.hpp>
 #include <kernel/io/input_buffer.hpp>
 #include <kernel/io/uart/uart_io.hpp>
 
 static bool init = false;
 static const size_t TEMPORAL_INPUT_BUFFER_SIZE = 32;
 
-namespace kernel::apps::shell
+namespace kernel::programs::shell
 {
-    using namespace kernel::apps::shell::internal;
-    uint64_t run(uint64_t program_id)
+    using namespace kernel::programs::shell::internal;
+    uint64_t run(uint64_t program_id, const char *args)
     {
         kernel::io::input_buffer::subscribe(program_id);
         init = true;

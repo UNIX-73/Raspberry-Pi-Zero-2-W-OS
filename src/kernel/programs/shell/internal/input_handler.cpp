@@ -1,9 +1,9 @@
-#include <kernel/apps/shell/internal/input_handler.hpp>
-#include <kernel/apps/shell/internal/state.hpp>
-#include <kernel/apps/shell/internal/command_executor.hpp>
+#include <kernel/programs/shell/internal/input_handler.hpp>
+#include <kernel/programs/shell/internal/state.hpp>
+#include <kernel/programs/shell/internal/command_executor.hpp>
 #include <kernel/io/uart/uart_io.hpp>
 
-namespace kernel::apps::shell::internal::input_handler
+namespace kernel::programs::shell::internal::input_handler
 {
     bool char_is_letter(uint8_t c)
     {
@@ -22,21 +22,21 @@ namespace kernel::apps::shell::internal::input_handler
 
     bool buffer_is_full()
     {
-        return (state::input_idx >= state::INPUT_BUFFER_SIZE);
+        return (state::command_buffer_idx >= state::COMMAND_BUFFER_SIZE);
     }
 
     void handle_del()
     {
-        if (state::input_idx != 0)
+        if (state::command_buffer_idx != 0)
         {
-            --state::input_idx;
+            --state::command_buffer_idx;
             send_to_frontend('\b');
         }
     }
 
     void handle_tab()
     {
-        if (state::input_idx < (state::INPUT_BUFFER_SIZE - state::TAB_SPACE_SIZE))
+        if (state::command_buffer_idx < (state::COMMAND_BUFFER_SIZE - state::TAB_SPACE_SIZE))
         {
             for (int i = 0; i < 4; i++)
             {
@@ -50,20 +50,21 @@ namespace kernel::apps::shell::internal::input_handler
         if (buffer_is_full())
             return;
 
-        state::input_buffer[state::input_idx++] = c;
+        state::command_buffer[state::command_buffer_idx++] = c;
 
         send_to_frontend(c);
     }
 
     void send_to_frontend(uint8_t c)
     {
-        // TODO hacerlo según frontend, mejor filtrado etc
+        // TODO: hacerlo según frontend, mejor filtrado etc.
 
         if (c == '\b')
         {
             kernel::io::uart::uart_io::send("\b \b");
             return;
         }
+
         if (c == '\n' || c == '\r')
         {
             kernel::io::uart::uart_io::newline();
@@ -74,35 +75,38 @@ namespace kernel::apps::shell::internal::input_handler
         kernel::io::uart::uart_io::putchar(c);
     }
 
+    void send_to_frontend(const char *str)
+    {
+        while (*str != '\0')
+        {
+            send_to_frontend(static_cast<uint8_t>(*str));
+            ++str;
+        }
+    }
+
     void handle_input_char(uint8_t c)
     {
-        using namespace kernel::apps::shell::internal;
+        using namespace kernel::programs::shell::internal;
 
-        if (state::running_program == nullptr)
+        if (input_handler::char_is_allowed_symbol(c))
         {
-            if (input_handler::char_is_allowed_symbol(c))
-            {
-                input_handler::push_char(c);
-                return;
-            }
-            if (c == '\b' || c == 0x7F)
-            {
-                input_handler::handle_del();
-                return;
-            }
-            if (c == '\t')
-            {
-                input_handler::handle_tab();
-                return;
-            }
-            if (c == '\n' || c == '\r')
-            {
-                command_executor::execute_command();
-                return;
-            }
+            input_handler::push_char(c);
+            return;
         }
-        else
+        if (c == '\b' || c == 0x7F)
         {
+            input_handler::handle_del();
+            return;
+        }
+        if (c == '\t')
+        {
+            input_handler::handle_tab();
+            return;
+        }
+        if (c == '\n' || c == '\r')
+        {
+            command_executor::execute_command();
+            return;
         }
     }
 }

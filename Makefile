@@ -14,7 +14,7 @@ OBJDUMP  := $(CROSS)objdump
 # ============================
 DEFINES := -DDEBUG
 
-CFLAGS   := $(DEFINES) -Wall -Wextra  -ffreestanding -O2 -nostdlib -nostartfiles
+CFLAGS   := -Wall -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -ffreestanding -O2 -nostdlib -nostartfiles
 CXXFLAGS := $(CFLAGS) -fno-rtti -fno-exceptions -fno-threadsafe-statics -fno-use-cxa-atexit
 INCLUDE_DIRS := -Iinclude
 
@@ -56,9 +56,8 @@ $(KERNEL_ELF): $(OBJ_FILES)
 
 $(BUILD_DIR)/%.o: %.cpp
 	@mkdir -p $(dir $@)
-	@mkdir -p $(dir $(ASM_DIR)/$*)
+	@mkdir -p $(ASM_DIR)/$(dir $*)    # crea el asm path completo
 	$(CPP) $(CXXFLAGS) $(INCLUDE_DIRS) -c $< -o $@
-	$(OBJDUMP) -d -S $@ > $(ASM_DIR)/$*.s
 
 $(BUILD_DIR)/%.o: %.S
 	@mkdir -p $(dir $@)
@@ -68,3 +67,13 @@ clean:
 	rm -rf $(BUILD_DIR) $(BIN_DIR) $(ASM_DIR)
 
 .PHONY: all clean
+
+# ============================
+# ASM objdump
+# ============================
+
+objdump: $(ASM_OUTPUTS)
+
+$(ASM_DIR)/%.s: $(BUILD_DIR)/%.o
+	@mkdir -p $(dir $@)
+	$(OBJDUMP) -d -S $< > $@

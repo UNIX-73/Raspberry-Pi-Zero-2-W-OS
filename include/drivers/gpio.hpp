@@ -1,8 +1,6 @@
 #pragma once
+
 #include <drivers/utils/mapped_reg.hpp>
-
-#define GPIO_PTR(offset) (REG32_PTR(GPIO::GPIO_BASE, offset))
-
 namespace GPIO
 {
     constexpr uintptr_t GPIO_BASE = 0x3F200000;
@@ -15,12 +13,12 @@ namespace GPIO
     constexpr uint32_t PUD_OFFSET = 0x94;
     constexpr uint32_t PUDLOCK_OFFSET = 0x98;
 
-    reg32_ptr_t FSEL_ADDR_PTR = GPIO_PTR(FSEL_OFFSET);
-    reg32_ptr_t SET_ADDR_PTR = GPIO_PTR(SET_OFFSET);
-    reg32_ptr_t CLR_ADDR_PTR = GPIO_PTR(CLR_OFFSET);
-    reg32_ptr_t LEV_ADDR_PTR = GPIO_PTR(LEV_OFFSET);
-    reg32_ptr_t PUD_ADDR_PTR = GPIO_PTR(PUD_OFFSET);
-    reg32_ptr_t PUDLOCK_ADDR_PTR = GPIO_PTR(PUDLOCK_OFFSET);
+    extern reg32_ptr_t FSEL_ADDR_PTR;
+    extern reg32_ptr_t SET_ADDR_PTR;
+    extern reg32_ptr_t CLR_ADDR_PTR;
+    extern reg32_ptr_t LEV_ADDR_PTR;
+    extern reg32_ptr_t PUD_ADDR_PTR;
+    extern reg32_ptr_t PUDLOCK_ADDR_PTR;
 
     enum class FSEL_OPTIONS
     {

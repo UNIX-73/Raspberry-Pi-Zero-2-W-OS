@@ -106,13 +106,13 @@ Disassembly of section .text:
  170:	a9be7bfd 	stp	x29, x30, [sp, #-32]!
  174:	910003fd 	mov	x29, sp
  178:	f120005f 	cmp	x2, #0x800
- 17c:	540006a8 	b.hi	250 <_ZN6kernel2io12input_buffer14ib_read_unreadEmPhm+0xe0>  // b.pmore
- 180:	a90153f3 	stp	x19, x20, [sp, #16]
- 184:	aa0203f4 	mov	x20, x2
- 188:	90000002 	adrp	x2, 0 <_ZN6kernel2io12input_buffer9subscribeEm>
- 18c:	91000042 	add	x2, x2, #0x0
- 190:	aa0103f3 	mov	x19, x1
- 194:	aa0203e3 	mov	x3, x2
+ 17c:	540006e8 	b.hi	258 <_ZN6kernel2io12input_buffer14ib_read_unreadEmPhm+0xe8>  // b.pmore
+ 180:	90000005 	adrp	x5, 0 <_ZN6kernel2io12input_buffer9subscribeEm>
+ 184:	910000a5 	add	x5, x5, #0x0
+ 188:	aa0503e3 	mov	x3, x5
+ 18c:	a90153f3 	stp	x19, x20, [sp, #16]
+ 190:	aa0203f4 	mov	x20, x2
+ 194:	aa0103f3 	mov	x19, x1
  198:	d2800001 	mov	x1, #0x0                   	// #0
  19c:	d503201f 	nop
  1a0:	f9400064 	ldr	x4, [x3]
@@ -138,44 +138,48 @@ Disassembly of section .text:
  1f0:	d2800000 	mov	x0, #0x0                   	// #0
  1f4:	a8c27bfd 	ldp	x29, x30, [sp], #32
  1f8:	d65f03c0 	ret
- 1fc:	8b010420 	add	x0, x1, x1, lsl #1
- 200:	39430043 	ldrb	w3, [x2, #192]
- 204:	91034044 	add	x4, x2, #0xd0
- 208:	aa1303e1 	mov	x1, x19
- 20c:	8b000c40 	add	x0, x2, x0, lsl #3
- 210:	f9400805 	ldr	x5, [x0, #16]
- 214:	aa0503e2 	mov	x2, x5
- 218:	eb05007f 	cmp	x3, x5
- 21c:	54000120 	b.eq	240 <_ZN6kernel2io12input_buffer14ib_read_unreadEmPhm+0xd0>  // b.none
- 220:	38626882 	ldrb	w2, [x4, x2]
- 224:	38001422 	strb	w2, [x1], #1
- 228:	f9400802 	ldr	x2, [x0, #16]
- 22c:	91000442 	add	x2, x2, #0x1
- 230:	92402842 	and	x2, x2, #0x7ff
- 234:	f9000802 	str	x2, [x0, #16]
- 238:	eb02007f 	cmp	x3, x2
- 23c:	54ffff21 	b.ne	220 <_ZN6kernel2io12input_buffer14ib_read_unreadEmPhm+0xb0>  // b.any
- 240:	cb050060 	sub	x0, x3, x5
- 244:	a94153f3 	ldp	x19, x20, [sp, #16]
- 248:	92402800 	and	x0, x0, #0x7ff
- 24c:	17ffffea 	b	1f4 <_ZN6kernel2io12input_buffer14ib_read_unreadEmPhm+0x84>
- 250:	90000000 	adrp	x0, 0 <_ZN6kernel2io12input_buffer9subscribeEm>
- 254:	91000000 	add	x0, x0, #0x0
- 258:	94000000 	bl	0 <_ZN6kernel2io4uart7uart_io6sendlnEPKc>
- 25c:	17ffffe5 	b	1f0 <_ZN6kernel2io12input_buffer14ib_read_unreadEmPhm+0x80>
+ 1fc:	937f7c20 	sbfiz	x0, x1, #1, #32
+ 200:	394300a3 	ldrb	w3, [x5, #192]
+ 204:	8b21c000 	add	x0, x0, w1, sxtw
+ 208:	910340a4 	add	x4, x5, #0xd0
+ 20c:	aa1303e1 	mov	x1, x19
+ 210:	8b000ca0 	add	x0, x5, x0, lsl #3
+ 214:	aa0003e2 	mov	x2, x0
+ 218:	f9400805 	ldr	x5, [x0, #16]
+ 21c:	aa0503e0 	mov	x0, x5
+ 220:	eb05007f 	cmp	x3, x5
+ 224:	54000120 	b.eq	248 <_ZN6kernel2io12input_buffer14ib_read_unreadEmPhm+0xd8>  // b.none
+ 228:	38606880 	ldrb	w0, [x4, x0]
+ 22c:	38001420 	strb	w0, [x1], #1
+ 230:	f9400840 	ldr	x0, [x2, #16]
+ 234:	91000400 	add	x0, x0, #0x1
+ 238:	92402800 	and	x0, x0, #0x7ff
+ 23c:	f9000840 	str	x0, [x2, #16]
+ 240:	eb00007f 	cmp	x3, x0
+ 244:	54ffff21 	b.ne	228 <_ZN6kernel2io12input_buffer14ib_read_unreadEmPhm+0xb8>  // b.any
+ 248:	cb050060 	sub	x0, x3, x5
+ 24c:	a94153f3 	ldp	x19, x20, [sp, #16]
+ 250:	92402800 	and	x0, x0, #0x7ff
+ 254:	17ffffe8 	b	1f4 <_ZN6kernel2io12input_buffer14ib_read_unreadEmPhm+0x84>
+ 258:	90000000 	adrp	x0, 0 <_ZN6kernel2io12input_buffer9subscribeEm>
+ 25c:	91000000 	add	x0, x0, #0x0
+ 260:	94000000 	bl	0 <_ZN6kernel2io4uart7uart_io6sendlnEPKc>
+ 264:	17ffffe3 	b	1f0 <_ZN6kernel2io12input_buffer14ib_read_unreadEmPhm+0x80>
 
-0000000000000260 <_ZN6kernel2io12input_buffer8ib_resetEv>:
- 260:	90000002 	adrp	x2, 0 <_ZN6kernel2io12input_buffer9subscribeEm>
- 264:	91000042 	add	x2, x2, #0x0
- 268:	91034043 	add	x3, x2, #0xd0
- 26c:	d2800001 	mov	x1, #0x0                   	// #0
- 270:	d37f7c20 	ubfiz	x0, x1, #1, #32
- 274:	3823683f 	strb	wzr, [x1, x3]
- 278:	8b214000 	add	x0, x0, w1, uxtw
- 27c:	91000421 	add	x1, x1, #0x1
- 280:	8b000c40 	add	x0, x2, x0, lsl #3
- 284:	a9007c1f 	stp	xzr, xzr, [x0]
- 288:	f900081f 	str	xzr, [x0, #16]
- 28c:	f120003f 	cmp	x1, #0x800
- 290:	54ffff01 	b.ne	270 <_ZN6kernel2io12input_buffer8ib_resetEv+0x10>  // b.any
- 294:	d65f03c0 	ret
+0000000000000268 <_ZN6kernel2io12input_buffer8ib_resetEv>:
+ 268:	90000002 	adrp	x2, 0 <_ZN6kernel2io12input_buffer9subscribeEm>
+ 26c:	91000042 	add	x2, x2, #0x0
+ 270:	91034043 	add	x3, x2, #0xd0
+ 274:	d2800001 	mov	x1, #0x0                   	// #0
+ 278:	d503201f 	nop
+ 27c:	d503201f 	nop
+ 280:	d37f7c20 	ubfiz	x0, x1, #1, #32
+ 284:	3823683f 	strb	wzr, [x1, x3]
+ 288:	8b214000 	add	x0, x0, w1, uxtw
+ 28c:	91000421 	add	x1, x1, #0x1
+ 290:	8b000c40 	add	x0, x2, x0, lsl #3
+ 294:	a9007c1f 	stp	xzr, xzr, [x0]
+ 298:	f900081f 	str	xzr, [x0, #16]
+ 29c:	f100203f 	cmp	x1, #0x8
+ 2a0:	54ffff01 	b.ne	280 <_ZN6kernel2io12input_buffer8ib_resetEv+0x18>  // b.any
+ 2a4:	d65f03c0 	ret

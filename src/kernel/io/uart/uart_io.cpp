@@ -46,4 +46,9 @@ namespace kernel::io::uart::uart_io
             return '?';
         }
     }
+
+    void clear_screen()
+    {
+        send("\033[2J\033[H");
+    }
 }

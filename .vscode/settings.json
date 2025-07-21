@@ -1,6 +1,7 @@
 {
   "files.associations": {
-    "cstdint": "cpp"
+    "cstdint": "cpp",
+    "cstddef": "cpp"
   },
   "C_Cpp.default.compileCommands": ["${workspaceFolder}/compile_commands.json"]
 }

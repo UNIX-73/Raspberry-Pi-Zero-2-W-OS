@@ -12,4 +12,6 @@ namespace kernel::io::uart::uart_io
     void sendln(const char *s);
 
     char uint32_to_char(uint32_t v);
+
+    void clear_screen();
 }

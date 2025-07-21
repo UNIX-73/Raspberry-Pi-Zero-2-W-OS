@@ -119,3 +119,23 @@ Disassembly of section .text:
  194:	528007e2 	mov	w2, #0x3f                  	// #63
  198:	1a823000 	csel	w0, w0, w2, cc	// cc = lo, ul, last
  19c:	d65f03c0 	ret
+
+00000000000001a0 <_ZN6kernel2io4uart7uart_io12clear_screenEv>:
+ 1a0:	d28a0a81 	mov	x1, #0x5054                	// #20564
+ 1a4:	90000002 	adrp	x2, 0 <_ZN6kernel2io4uart7uart_io7putcharEc>
+ 1a8:	f2a7e421 	movk	x1, #0x3f21, lsl #16
+ 1ac:	91000042 	add	x2, x2, #0x0
+ 1b0:	d1005024 	sub	x4, x1, #0x14
+ 1b4:	52800363 	mov	w3, #0x1b                  	// #27
+ 1b8:	d503201f 	nop
+ 1bc:	d503201f 	nop
+ 1c0:	b9400020 	ldr	w0, [x1]
+ 1c4:	91000442 	add	x2, x2, #0x1
+ 1c8:	37280080 	tbnz	w0, #5, 1d8 <_ZN6kernel2io4uart7uart_io12clear_screenEv+0x38>
+ 1cc:	d503201f 	nop
+ 1d0:	b9400020 	ldr	w0, [x1]
+ 1d4:	362fffc0 	tbz	w0, #5, 1cc <_ZN6kernel2io4uart7uart_io12clear_screenEv+0x2c>
+ 1d8:	b9000083 	str	w3, [x4]
+ 1dc:	39400043 	ldrb	w3, [x2]
+ 1e0:	35ffff03 	cbnz	w3, 1c0 <_ZN6kernel2io4uart7uart_io12clear_screenEv+0x20>
+ 1e4:	d65f03c0 	ret

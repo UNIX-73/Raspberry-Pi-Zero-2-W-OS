@@ -3,7 +3,7 @@
 
 namespace kernel::programs
 {
-    typedef uint64_t (*program_entry_ptr)(uint64_t program_id, const char *args);
+    typedef uint64_t (*program_entry_ptr)(uint64_t program_id, char *args);
 
     struct ProgramDefinition
     {

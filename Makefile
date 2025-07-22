@@ -1,6 +1,7 @@
 # ============================
 # Toolchain
 # ============================
+
 CROSS    := aarch64-none-elf-
 CPP      := $(CROSS)g++
 CC       := $(CROSS)gcc
@@ -12,9 +13,10 @@ OBJDUMP  := $(CROSS)objdump
 # ============================
 # Flags
 # ============================
-DEFINES := -DDEBUG
 
-CFLAGS   := -Wall -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -ffreestanding -O2 -nostdlib -nostartfiles
+DEFINES := -DDEBUG -DSAFE
+
+CFLAGS   := $(DEFINES) -Wall -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -ffreestanding -O2 -nostdlib -nostartfiles -mabi=lp64 -march=armv8-a -mtune=cortex-a53
 CXXFLAGS := $(CFLAGS) -fno-rtti -fno-exceptions -fno-threadsafe-statics -fno-use-cxa-atexit
 INCLUDE_DIRS := -Iinclude
 
@@ -24,18 +26,21 @@ INCLUDE_DIRS := -Iinclude
 SRC_DIR    := src
 BUILD_DIR  := build
 BIN_DIR    := bin
-ASM_DIR    := asm
+ASM_DIR    := __objdump
+MAP_DIR	   := $(ASM_DIR)
+
 
 # ============================
 # Files
 # ============================
+
 ASM_FILES := $(shell find $(SRC_DIR) -name '*.S')
 CPP_FILES := $(shell find $(SRC_DIR) -name '*.cpp')
 
 OBJ_FILES := $(ASM_FILES:%.S=$(BUILD_DIR)/%.o) \
              $(CPP_FILES:%.cpp=$(BUILD_DIR)/%.o)
 
-ASM_OUTPUTS := $(CPP_FILES:%.cpp=$(ASM_DIR)/%.s)
+ASM_OUTPUTS := $(OBJ_FILES:$(BUILD_DIR)/%.o=$(ASM_DIR)/%.s)
 
 KERNEL_ELF := $(BIN_DIR)/kernel.elf
 KERNEL_IMG := $(BIN_DIR)/kernel8.img
@@ -44,7 +49,7 @@ KERNEL_IMG := $(BIN_DIR)/kernel8.img
 # Build Rules
 # ============================
 
-all: clean $(KERNEL_IMG)
+all: $(KERNEL_IMG)
 
 $(KERNEL_IMG): $(KERNEL_ELF)
 	@mkdir -p $(BIN_DIR)
@@ -52,11 +57,11 @@ $(KERNEL_IMG): $(KERNEL_ELF)
 
 $(KERNEL_ELF): $(OBJ_FILES)
 	@mkdir -p $(BIN_DIR)
-	$(LD) -T linker.ld -o $@ $^
+	@mkdir -p $(MAP_DIR)
+	$(LD) -T linker.ld -Map=$(MAP_DIR)/kernel.map -o $@ $^
 
 $(BUILD_DIR)/%.o: %.cpp
 	@mkdir -p $(dir $@)
-	@mkdir -p $(ASM_DIR)/$(dir $*)    # crea el asm path completo
 	$(CPP) $(CXXFLAGS) $(INCLUDE_DIRS) -c $< -o $@
 
 $(BUILD_DIR)/%.o: %.S
@@ -66,13 +71,11 @@ $(BUILD_DIR)/%.o: %.S
 clean:
 	rm -rf $(BUILD_DIR) $(BIN_DIR) $(ASM_DIR)
 
-.PHONY: all clean
-
 # ============================
 # ASM objdump
 # ============================
 
-objdump: $(ASM_OUTPUTS)
+objdump: $(OBJ_FILES) $(ASM_OUTPUTS)
 
 $(ASM_DIR)/%.s: $(BUILD_DIR)/%.o
 	@mkdir -p $(dir $@)

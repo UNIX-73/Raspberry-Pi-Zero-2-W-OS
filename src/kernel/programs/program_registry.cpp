@@ -1,12 +1,15 @@
 #include <kernel/programs/program_registry.hpp>
-#include <kernel/lib/string/strcmp.hpp>
+#include <kernel/lib/string.hpp>
 #include <kernel/programs/shell/shell.hpp>
 #include <kernel/programs/clear/clear.hpp>
+#include <kernel/programs/gpio/gpio.hpp>
 
 namespace kernel::programs::registry
 {
     static ProgramDefinition kernel_programs[] = {
-        {"shell", "", shell::run, false}, {"clear", "Clears the screen", clear::run, false}};
+        {"shell", "", shell::run, false},
+        {"clear", "Clears the screen", clear::run, false},
+        {"gpio", "Allows control of the GPIO pins", gpio::run, false}};
 
     ProgramDefinition *find_by_name(const char *name)
     {
@@ -21,7 +24,7 @@ namespace kernel::programs::registry
 
     ProgramDefinition *get_all()
     {
-        return kernel_programs;  
+        return kernel_programs;
     }
 
     size_t count()

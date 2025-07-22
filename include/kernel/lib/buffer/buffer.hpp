@@ -12,4 +12,15 @@ namespace kernel::lib::buffer
             buffer[i] = filler;
         }
     };
+
+    // Inicializa un buffer sin que salte el error de sync el1h por rodata desalineada
+    inline void fill_char_buffer(char *buffer, size_t size, const char *filler)
+    {
+        size_t i = 0;
+        for (; i < size - 1 && filler[i] != '\0'; ++i)
+        {
+            buffer[i] = filler[i];
+        }
+        buffer[i] = '\0'; // null-terminación segura
+    }
 }

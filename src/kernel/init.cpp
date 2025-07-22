@@ -21,9 +21,6 @@ namespace kernel
             irq_enable(); // msr daifclr, #2
             IRQ::enable_irq(IRQ::IRQ_OPTIONS::MINI_UART);
             AUX::MINI_UART::init();
-
-            GPIO::set_function_select(21, GPIO::FSEL_OPTIONS::OUTPUT);
-            GPIO::set_pin(21);
         }
     }
 
@@ -31,7 +28,8 @@ namespace kernel
     {
         while (1)
         {
-            kernel::io::uart::uart_io::sendln("Hello world");
+            kernel::io::uart::uart_io::clear_screen();
+            kernel::io::uart::uart_io::sendln("OS STARTED - (EL1)");
 
             kernel::programs::registry::find_by_name("shell")->entry(0x00000001, "");
 

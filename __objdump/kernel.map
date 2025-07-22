@@ -1,0 +1,471 @@
+
+There are no discarded input sections
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+                0x0000000000080000                . = 0x80000
+
+.text           0x0000000000080000     0x3790
+ *(.text.boot)
+ .text.boot     0x0000000000080000       0x58 build/src/boot/boot.o
+                0x0000000000080000                _start
+ *(.text*)
+ .text          0x0000000000080058        0x0 build/src/boot/boot.o
+ .text          0x0000000000080058        0x0 build/src/boot/exception_level/save_stack_macros.o
+ .text          0x0000000000080058       0x1c build/src/boot/exception_level/exception_level.o
+                0x0000000000080058                read_el
+                0x0000000000080064                irq_enable
+                0x000000000008006c                irq_disable
+ *fill*         0x0000000000080074      0x78c 
+ .text          0x0000000000080800     0x1944 build/src/boot/exception_level/el1/el1_exception_vector.o
+                0x0000000000080800                el1_irq_init_vectors
+                0x0000000000081000                el1_vectors
+ *fill*         0x0000000000082144        0x4 
+ .text          0x0000000000082148       0x70 build/src/boot/exception_level/el1/el1_core.o
+                0x0000000000082148                switch_to_el1
+                0x0000000000082178                el1_entry
+ *fill*         0x00000000000821b8        0x8 
+ .text          0x00000000000821c0       0x14 build/src/main.o
+                0x00000000000821c0                kernel_main
+ *fill*         0x00000000000821d4        0xc 
+ .text          0x00000000000821e0        0xc build/src/boot/exception_level/el1/exceptions/serror_el1h.o
+                0x00000000000821e0                serror_el1h
+ *fill*         0x00000000000821ec        0x4 
+ .text          0x00000000000821f0        0xc build/src/boot/exception_level/el1/exceptions/fiq_el1t.o
+                0x00000000000821f0                fiq_el1t
+ *fill*         0x00000000000821fc        0x4 
+ .text          0x0000000000082200        0xc build/src/boot/exception_level/el1/exceptions/irq_el1t.o
+                0x0000000000082200                irq_el1t
+ *fill*         0x000000000008220c        0x4 
+ .text          0x0000000000082210        0xc build/src/boot/exception_level/el1/exceptions/fiq_el0_32.o
+                0x0000000000082210                fiq_el0_32
+ *fill*         0x000000000008221c        0x4 
+ .text          0x0000000000082220       0x44 build/src/boot/exception_level/el1/exceptions/sync_el1h.o
+                0x0000000000082220                sync_el1h
+ *fill*         0x0000000000082264        0xc 
+ .text          0x0000000000082270        0xc build/src/boot/exception_level/el1/exceptions/sync_el1t.o
+                0x0000000000082270                sync_el1t
+ *fill*         0x000000000008227c        0x4 
+ .text          0x0000000000082280        0xc build/src/boot/exception_level/el1/exceptions/sync_el0_32.o
+                0x0000000000082280                sync_el0_32
+ *fill*         0x000000000008228c        0x4 
+ .text          0x0000000000082290        0xc build/src/boot/exception_level/el1/exceptions/serror_el0_64.o
+                0x0000000000082290                serror_el0_64
+ *fill*         0x000000000008229c        0x4 
+ .text          0x00000000000822a0        0xc build/src/boot/exception_level/el1/exceptions/fiq_el0_64.o
+                0x00000000000822a0                fiq_el0_64
+ *fill*         0x00000000000822ac        0x4 
+ .text          0x00000000000822b0        0xc build/src/boot/exception_level/el1/exceptions/serror_el0_32.o
+                0x00000000000822b0                serror_el0_32
+ *fill*         0x00000000000822bc        0x4 
+ .text          0x00000000000822c0        0xc build/src/boot/exception_level/el1/exceptions/sync_el0_64.o
+                0x00000000000822c0                sync_el0_64
+ *fill*         0x00000000000822cc        0x4 
+ .text          0x00000000000822d0        0xc build/src/boot/exception_level/el1/exceptions/fiq_el1h.o
+                0x00000000000822d0                fiq_el1h
+ *fill*         0x00000000000822dc        0x4 
+ .text          0x00000000000822e0       0x24 build/src/boot/exception_level/el1/exceptions/irq_el1h.o
+                0x00000000000822e0                irq_el1h
+ *fill*         0x0000000000082304        0xc 
+ .text          0x0000000000082310        0xc build/src/boot/exception_level/el1/exceptions/irq_el0_32.o
+                0x0000000000082310                irq_el0_32
+ *fill*         0x000000000008231c        0x4 
+ .text          0x0000000000082320        0xc build/src/boot/exception_level/el1/exceptions/serror_el1t.o
+                0x0000000000082320                serror_el1t
+ *fill*         0x000000000008232c        0x4 
+ .text          0x0000000000082330        0xc build/src/boot/exception_level/el1/exceptions/irq_el0_64.o
+                0x0000000000082330                irq_el0_64
+ *fill*         0x000000000008233c        0x4 
+ .text          0x0000000000082340      0x230 build/src/kernel/io/uart/uart_io.o
+                0x0000000000082340                kernel::io::uart::uart_io::putchar(char)
+                0x0000000000082380                kernel::io::uart::uart_io::newline()
+                0x00000000000823c0                kernel::io::uart::uart_io::return_carriage()
+                0x0000000000082400                kernel::io::uart::uart_io::send(char const*)
+                0x0000000000082450                kernel::io::uart::uart_io::sendln(char const*)
+                0x0000000000082500                kernel::io::uart::uart_io::uint32_to_char(unsigned int)
+                0x0000000000082520                kernel::io::uart::uart_io::clear_screen()
+ .text          0x0000000000082570      0x29c build/src/kernel/io/input_buffer.o
+                0x0000000000082570                kernel::io::input_buffer::subscribe(unsigned long)
+                0x0000000000082660                kernel::io::input_buffer::ib_push_char(unsigned char)
+                0x0000000000082680                kernel::io::input_buffer::ib_get_data(unsigned char*, unsigned long)
+                0x00000000000826d0                kernel::io::input_buffer::ib_read_unread(unsigned long, unsigned char*, unsigned long)
+                0x00000000000827d0                kernel::io::input_buffer::ib_reset()
+ *fill*         0x000000000008280c        0x4 
+ .text          0x0000000000082810       0xa8 build/src/kernel/init.o
+                0x0000000000082810                kernel::init_devices()
+                0x0000000000082850                kernel::start()
+ *fill*         0x00000000000828b8        0x8 
+ .text          0x00000000000828c0      0x26c build/src/kernel/lib/debug/debug.o
+                0x00000000000828c0                kernel::lib::debug::debug_stack_alineation()
+                0x00000000000828f0                kernel::lib::debug::debug_send(char const*)
+                0x0000000000082920                kernel::lib::debug::debug_sendln(char const*)
+                0x0000000000082960                kernel::lib::debug::debug_print_hex_u64(unsigned long)
+                0x0000000000082a20                kernel::lib::debug::debug_ptr_address(void const*)
+                0x0000000000082ab0                kernel::lib::debug::debug_print_sp()
+                0x0000000000082af0                kernel::lib::debug::check_sp_bounds()
+ .text          0x0000000000082b2c        0x0 build/src/kernel/lib/buffer/buffer.o
+ *fill*         0x0000000000082b2c        0x4 
+ .text          0x0000000000082b30      0x1fc build/src/kernel/lib/string.o
+                0x0000000000082b30                kernel::lib::string::strcmp(char const*, char const*)
+                0x0000000000082b80                kernel::lib::string::equal(char const*, char const*)
+                0x0000000000082c10                kernel::lib::string::char_is_undercase_letter(unsigned char)
+                0x0000000000082c30                kernel::lib::string::char_is_uppercase_letter(unsigned char)
+                0x0000000000082c50                kernel::lib::string::char_is_letter(unsigned char)
+                0x0000000000082c70                kernel::lib::string::char_is_digit(unsigned char)
+                0x0000000000082c90                kernel::lib::string::ascii_to_uint8(char)
+                0x0000000000082cb0                kernel::lib::string::args::parse_into(char*, kernel::lib::string::args::ParsedArgs*)
+ .text          0x0000000000082d2c        0x0 build/src/kernel/programs/shell/internal/state.o
+ *fill*         0x0000000000082d2c        0x4 
+ .text          0x0000000000082d30      0x190 build/src/kernel/programs/shell/internal/command_executor.o
+                0x0000000000082d30                kernel::programs::shell::internal::command_executor::execute_command()
+ .text          0x0000000000082ec0      0x34c build/src/kernel/programs/shell/internal/input_handler.o
+                0x0000000000082ec0                kernel::programs::shell::internal::input_handler::char_is_allowed_symbol(unsigned char)
+                0x0000000000082f20                kernel::programs::shell::internal::input_handler::buffer_is_full()
+                0x0000000000082f40                kernel::programs::shell::internal::input_handler::handle_del()
+                0x0000000000082f70                kernel::programs::shell::internal::input_handler::handle_tab()
+                0x0000000000082ff0                kernel::programs::shell::internal::input_handler::push_char(unsigned char)
+                0x0000000000083060                kernel::programs::shell::internal::input_handler::send_to_frontend(unsigned char)
+                0x00000000000830a0                kernel::programs::shell::internal::input_handler::send_to_frontend(char const*)
+                0x0000000000083120                kernel::programs::shell::internal::input_handler::handle_input_char(unsigned char)
+ *fill*         0x000000000008320c        0x4 
+ .text          0x0000000000083210       0xb4 build/src/kernel/programs/shell/shell.o
+                0x0000000000083210                kernel::programs::shell::run(unsigned long, char*)
+                0x00000000000832c0                kernel::programs::shell::reset()
+ *fill*         0x00000000000832c4        0xc 
+ .text          0x00000000000832d0       0x88 build/src/kernel/programs/program_registry.o
+                0x00000000000832d0                kernel::programs::registry::find_by_name(char const*)
+                0x0000000000083340                kernel::programs::registry::get_all()
+                0x0000000000083350                kernel::programs::registry::count()
+ *fill*         0x0000000000083358        0x8 
+ .text          0x0000000000083360       0x18 build/src/kernel/programs/clear/clear.o
+                0x0000000000083360                kernel::programs::clear::run(unsigned long, char*)
+ *fill*         0x0000000000083378        0x8 
+ .text          0x0000000000083380      0x1fc build/src/kernel/programs/gpio/gpio.o
+                0x0000000000083380                kernel::programs::gpio::run(unsigned long, char*)
+ *fill*         0x000000000008357c        0x4 
+ .text          0x0000000000083580       0xf4 build/src/drivers/gpio.o
+                0x0000000000083580                GPIO::set_function_select(unsigned int, GPIO::FSEL_OPTIONS)
+                0x00000000000835d0                GPIO::set_pull_up_down(unsigned int, GPIO::PUD_OPTIONS)
+ *fill*         0x0000000000083674        0xc 
+ .text          0x0000000000083680       0x38 build/src/drivers/irq.o
+                0x0000000000083680                IRQ::enable_irq(IRQ::IRQ_OPTIONS)
+                0x00000000000836a0                IRQ::disable_irq(IRQ::IRQ_OPTIONS)
+ *fill*         0x00000000000836b8        0x8 
+ .text          0x00000000000836c0       0x18 build/src/drivers/aux/aux.o
+                0x00000000000836c0                AUX::init()
+ *fill*         0x00000000000836d8        0x8 
+ .text          0x00000000000836e0       0xa8 build/src/drivers/aux/mini_uart.o
+                0x00000000000836e0                AUX::MINI_UART::init()
+                0x0000000000083790                . = ALIGN (0x10)
+ *fill*         0x0000000000083788        0x8 
+
+.iplt           0x0000000000083790        0x0
+ .iplt          0x0000000000083790        0x0 build/src/boot/boot.o
+
+.rodata         0x0000000000084000      0x730
+                0x0000000000084000                . = ALIGN (0x10)
+ *(.rodata .rodata.*)
+ .rodata.str1.8
+                0x0000000000084000      0x594 build/src/boot/exception_level/el1/exceptions/serror_el1h.o
+                                         0x27 (size before relaxing)
+ .rodata.str1.8
+                0x0000000000084594       0x24 build/src/boot/exception_level/el1/exceptions/fiq_el1t.o
+ .rodata.str1.8
+                0x0000000000084594       0x24 build/src/boot/exception_level/el1/exceptions/irq_el1t.o
+ .rodata.str1.8
+                0x0000000000084594       0x26 build/src/boot/exception_level/el1/exceptions/fiq_el0_32.o
+ .rodata.str1.8
+                0x0000000000084594       0x25 build/src/boot/exception_level/el1/exceptions/sync_el1h.o
+ .rodata.str1.8
+                0x0000000000084594       0x25 build/src/boot/exception_level/el1/exceptions/sync_el1t.o
+ .rodata.str1.8
+                0x0000000000084594       0x27 build/src/boot/exception_level/el1/exceptions/sync_el0_32.o
+ .rodata.str1.8
+                0x0000000000084594       0x29 build/src/boot/exception_level/el1/exceptions/serror_el0_64.o
+ .rodata.str1.8
+                0x0000000000084594       0x26 build/src/boot/exception_level/el1/exceptions/fiq_el0_64.o
+ .rodata.str1.8
+                0x0000000000084594       0x29 build/src/boot/exception_level/el1/exceptions/serror_el0_32.o
+ .rodata.str1.8
+                0x0000000000084594       0x27 build/src/boot/exception_level/el1/exceptions/sync_el0_64.o
+ .rodata.str1.8
+                0x0000000000084594       0x24 build/src/boot/exception_level/el1/exceptions/fiq_el1h.o
+ .rodata.str1.8
+                0x0000000000084594       0x26 build/src/boot/exception_level/el1/exceptions/irq_el0_32.o
+ .rodata.str1.8
+                0x0000000000084594       0x27 build/src/boot/exception_level/el1/exceptions/serror_el1t.o
+ .rodata.str1.8
+                0x0000000000084594       0x26 build/src/boot/exception_level/el1/exceptions/irq_el0_64.o
+ .rodata.str1.8
+                0x0000000000084594        0x8 build/src/kernel/io/uart/uart_io.o
+ .rodata.str1.8
+                0x0000000000084594       0x6f build/src/kernel/io/input_buffer.o
+ .rodata.str1.8
+                0x0000000000084594       0x21 build/src/kernel/init.o
+ .rodata.str1.8
+                0x0000000000084594       0xc2 build/src/kernel/lib/debug/debug.o
+ *fill*         0x0000000000084594        0xc 
+ .rodata        0x00000000000845a0       0x11 build/src/kernel/lib/debug/debug.o
+ .rodata.str1.8
+                0x00000000000845b1       0x1e build/src/kernel/lib/string.o
+ .rodata.str1.8
+                0x00000000000845b1       0x11 build/src/kernel/programs/shell/internal/command_executor.o
+ .rodata.str1.8
+                0x00000000000845b1        0x4 build/src/kernel/programs/shell/internal/input_handler.o
+ .rodata.str1.8
+                0x00000000000845b1        0x4 build/src/kernel/programs/shell/shell.o
+ .rodata.str1.8
+                0x00000000000845b1       0x58 build/src/kernel/programs/program_registry.o
+ .rodata.str1.8
+                0x00000000000845b1      0x13c build/src/kernel/programs/gpio/gpio.o
+ *fill*         0x00000000000845b1        0xf 
+ .rodata        0x00000000000845c0       0x30 build/src/kernel/programs/gpio/gpio.o
+ .rodata        0x00000000000845f0       0x30 build/src/drivers/gpio.o
+                0x00000000000845f0                GPIO::PUDLOCK_ADDR_PTR
+                0x00000000000845f8                GPIO::PUD_ADDR_PTR
+                0x0000000000084600                GPIO::LEV_ADDR_PTR
+                0x0000000000084608                GPIO::CLR_ADDR_PTR
+                0x0000000000084610                GPIO::SET_ADDR_PTR
+                0x0000000000084618                GPIO::FSEL_ADDR_PTR
+ .rodata        0x0000000000084620       0x50 build/src/drivers/irq.o
+                0x0000000000084620                IRQ::DISABLE_BASIC_IRQS
+                0x0000000000084628                IRQ::DISABLE_IRQS_2
+                0x0000000000084630                IRQ::DISABLE_IRQS_1
+                0x0000000000084638                IRQ::ENABLE_BASIC_IRQS
+                0x0000000000084640                IRQ::ENABLE_IRQS_2
+                0x0000000000084648                IRQ::ENABLE_IRQS_1
+                0x0000000000084650                IRQ::FIQ_CONTROL
+                0x0000000000084658                IRQ::IRQ_PENDING_2
+                0x0000000000084660                IRQ::IRQ_PENDING_1
+                0x0000000000084668                IRQ::IRQ_BASIC_PENDING
+ .rodata        0x0000000000084670       0xb8 build/src/drivers/aux/aux.o
+                0x0000000000084670                AUX::SPI1_PEEK_REG_ADDR_PTR
+                0x0000000000084678                AUX::SPI1_IO_REG_ADDR_PTR
+                0x0000000000084680                AUX::SPI1_STAT_REG_ADDR_PTR
+                0x0000000000084688                AUX::SPI1_CNTL1_REG_ADDR_PTR
+                0x0000000000084690                AUX::SPI1_CNTL0_REG_ADDR_PTR
+                0x0000000000084698                AUX::SPI0_PEEK_REG_ADDR_PTR
+                0x00000000000846a0                AUX::SPI0_IO_REG_ADDR_PTR
+                0x00000000000846a8                AUX::SPI0_STAT_REG_ADDR_PTR
+                0x00000000000846b0                AUX::SPI0_CNTL1_REG_ADDR_PTR
+                0x00000000000846b8                AUX::SPI0_CNTL0_REG_ADDR_PTR
+                0x00000000000846c0                AUX::MU_BAUD_REG_ADDR_PTR
+                0x00000000000846c8                AUX::MU_STAT_REG_ADDR_PTR
+                0x00000000000846d0                AUX::MU_CNTL_REG_ADDR_PTR
+                0x00000000000846d8                AUX::MU_SCRATCH_ADDR_PTR
+                0x00000000000846e0                AUX::MU_MSR_REG_ADDR_PTR
+                0x00000000000846e8                AUX::MU_LSR_REG_ADDR_PTR
+                0x00000000000846f0                AUX::MU_MCR_REG_ADDR_PTR
+                0x00000000000846f8                AUX::MU_LCR_REG_ADDR_PTR
+                0x0000000000084700                AUX::MU_IIR_REG_ADDR_PTR
+                0x0000000000084708                AUX::MU_IER_REG_ADDR_PTR
+                0x0000000000084710                AUX::MU_IO_REG_ADDR_PTR
+                0x0000000000084718                AUX::ENABLES_ADDR_PTR
+                0x0000000000084720                AUX::IRQ_ADDR_PTR
+                0x0000000000084730                . = ALIGN (0x10)
+ *fill*         0x0000000000084728        0x8 
+
+.rela.dyn       0x0000000000084730        0x0
+ .rela.iplt     0x0000000000084730        0x0 build/src/boot/boot.o
+ .rela.text.boot
+                0x0000000000084730        0x0 build/src/boot/boot.o
+ .rela.text     0x0000000000084730        0x0 build/src/boot/boot.o
+
+.data           0x0000000000085000       0x60
+ *(.data*)
+ .data          0x0000000000085000        0x0 build/src/boot/boot.o
+ .data          0x0000000000085000        0x0 build/src/boot/exception_level/save_stack_macros.o
+ .data          0x0000000000085000        0x0 build/src/boot/exception_level/exception_level.o
+ .data          0x0000000000085000        0x0 build/src/boot/exception_level/el1/el1_exception_vector.o
+ .data          0x0000000000085000        0x0 build/src/boot/exception_level/el1/el1_core.o
+ .data          0x0000000000085000        0x0 build/src/main.o
+ .data          0x0000000000085000        0x0 build/src/boot/exception_level/el1/exceptions/serror_el1h.o
+ .data          0x0000000000085000        0x0 build/src/boot/exception_level/el1/exceptions/fiq_el1t.o
+ .data          0x0000000000085000        0x0 build/src/boot/exception_level/el1/exceptions/irq_el1t.o
+ .data          0x0000000000085000        0x0 build/src/boot/exception_level/el1/exceptions/fiq_el0_32.o
+ .data          0x0000000000085000        0x0 build/src/boot/exception_level/el1/exceptions/sync_el1h.o
+ .data          0x0000000000085000        0x0 build/src/boot/exception_level/el1/exceptions/sync_el1t.o
+ .data          0x0000000000085000        0x0 build/src/boot/exception_level/el1/exceptions/sync_el0_32.o
+ .data          0x0000000000085000        0x0 build/src/boot/exception_level/el1/exceptions/serror_el0_64.o
+ .data          0x0000000000085000        0x0 build/src/boot/exception_level/el1/exceptions/fiq_el0_64.o
+ .data          0x0000000000085000        0x0 build/src/boot/exception_level/el1/exceptions/serror_el0_32.o
+ .data          0x0000000000085000        0x0 build/src/boot/exception_level/el1/exceptions/sync_el0_64.o
+ .data          0x0000000000085000        0x0 build/src/boot/exception_level/el1/exceptions/fiq_el1h.o
+ .data          0x0000000000085000        0x0 build/src/boot/exception_level/el1/exceptions/irq_el1h.o
+ .data          0x0000000000085000        0x0 build/src/boot/exception_level/el1/exceptions/irq_el0_32.o
+ .data          0x0000000000085000        0x0 build/src/boot/exception_level/el1/exceptions/serror_el1t.o
+ .data          0x0000000000085000        0x0 build/src/boot/exception_level/el1/exceptions/irq_el0_64.o
+ .data          0x0000000000085000        0x0 build/src/kernel/io/uart/uart_io.o
+ .data          0x0000000000085000        0x0 build/src/kernel/io/input_buffer.o
+ .data          0x0000000000085000        0x0 build/src/kernel/init.o
+ .data          0x0000000000085000        0x0 build/src/kernel/lib/debug/debug.o
+ .data          0x0000000000085000        0x0 build/src/kernel/lib/buffer/buffer.o
+ .data          0x0000000000085000        0x0 build/src/kernel/lib/string.o
+ .data          0x0000000000085000        0x0 build/src/kernel/programs/shell/internal/state.o
+ .data          0x0000000000085000        0x0 build/src/kernel/programs/shell/internal/command_executor.o
+ .data          0x0000000000085000        0x0 build/src/kernel/programs/shell/internal/input_handler.o
+ .data          0x0000000000085000        0x0 build/src/kernel/programs/shell/shell.o
+ .data          0x0000000000085000       0x60 build/src/kernel/programs/program_registry.o
+ .data          0x0000000000085060        0x0 build/src/kernel/programs/clear/clear.o
+ .data          0x0000000000085060        0x0 build/src/kernel/programs/gpio/gpio.o
+ .data          0x0000000000085060        0x0 build/src/drivers/gpio.o
+ .data          0x0000000000085060        0x0 build/src/drivers/irq.o
+ .data          0x0000000000085060        0x0 build/src/drivers/aux/aux.o
+ .data          0x0000000000085060        0x0 build/src/drivers/aux/mini_uart.o
+
+.igot.plt       0x0000000000085060        0x0
+ .igot.plt      0x0000000000085060        0x0 build/src/boot/boot.o
+
+.bss            0x0000000000086000      0x9f0
+                0x0000000000086000                __bss_start = .
+ *(.bss*)
+ .bss           0x0000000000086000        0x0 build/src/boot/boot.o
+ .bss           0x0000000000086000        0x0 build/src/boot/exception_level/save_stack_macros.o
+ .bss           0x0000000000086000        0x0 build/src/boot/exception_level/exception_level.o
+ .bss           0x0000000000086000        0x0 build/src/boot/exception_level/el1/el1_exception_vector.o
+ .bss           0x0000000000086000        0x0 build/src/boot/exception_level/el1/el1_core.o
+ .bss           0x0000000000086000        0x0 build/src/main.o
+ .bss           0x0000000000086000        0x0 build/src/boot/exception_level/el1/exceptions/serror_el1h.o
+ .bss           0x0000000000086000        0x0 build/src/boot/exception_level/el1/exceptions/fiq_el1t.o
+ .bss           0x0000000000086000        0x0 build/src/boot/exception_level/el1/exceptions/irq_el1t.o
+ .bss           0x0000000000086000        0x0 build/src/boot/exception_level/el1/exceptions/fiq_el0_32.o
+ .bss           0x0000000000086000        0x1 build/src/boot/exception_level/el1/exceptions/sync_el1h.o
+ .bss           0x0000000000086001        0x0 build/src/boot/exception_level/el1/exceptions/sync_el1t.o
+ .bss           0x0000000000086001        0x0 build/src/boot/exception_level/el1/exceptions/sync_el0_32.o
+ .bss           0x0000000000086001        0x0 build/src/boot/exception_level/el1/exceptions/serror_el0_64.o
+ .bss           0x0000000000086001        0x0 build/src/boot/exception_level/el1/exceptions/fiq_el0_64.o
+ .bss           0x0000000000086001        0x0 build/src/boot/exception_level/el1/exceptions/serror_el0_32.o
+ .bss           0x0000000000086001        0x0 build/src/boot/exception_level/el1/exceptions/sync_el0_64.o
+ .bss           0x0000000000086001        0x0 build/src/boot/exception_level/el1/exceptions/fiq_el1h.o
+ .bss           0x0000000000086001        0x0 build/src/boot/exception_level/el1/exceptions/irq_el1h.o
+ .bss           0x0000000000086001        0x0 build/src/boot/exception_level/el1/exceptions/irq_el0_32.o
+ .bss           0x0000000000086001        0x0 build/src/boot/exception_level/el1/exceptions/serror_el1t.o
+ .bss           0x0000000000086001        0x0 build/src/boot/exception_level/el1/exceptions/irq_el0_64.o
+ .bss           0x0000000000086001        0x0 build/src/kernel/io/uart/uart_io.o
+ *fill*         0x0000000000086001        0xf 
+ .bss           0x0000000000086010      0x8d0 build/src/kernel/io/input_buffer.o
+ .bss           0x00000000000868e0        0x0 build/src/kernel/init.o
+ .bss           0x00000000000868e0        0x0 build/src/kernel/lib/debug/debug.o
+ .bss           0x00000000000868e0        0x0 build/src/kernel/lib/buffer/buffer.o
+ .bss           0x00000000000868e0        0x0 build/src/kernel/lib/string.o
+ .bss           0x00000000000868e0      0x10f build/src/kernel/programs/shell/internal/state.o
+                0x00000000000868e0                kernel::programs::shell::internal::state::command_buffer_idx
+                0x00000000000868f0                kernel::programs::shell::internal::state::command_buffer
+ .bss           0x00000000000869ef        0x0 build/src/kernel/programs/shell/internal/command_executor.o
+ .bss           0x00000000000869ef        0x0 build/src/kernel/programs/shell/internal/input_handler.o
+ .bss           0x00000000000869ef        0x1 build/src/kernel/programs/shell/shell.o
+ .bss           0x00000000000869f0        0x0 build/src/kernel/programs/program_registry.o
+ .bss           0x00000000000869f0        0x0 build/src/kernel/programs/clear/clear.o
+ .bss           0x00000000000869f0        0x0 build/src/kernel/programs/gpio/gpio.o
+ .bss           0x00000000000869f0        0x0 build/src/drivers/gpio.o
+ .bss           0x00000000000869f0        0x0 build/src/drivers/irq.o
+ .bss           0x00000000000869f0        0x0 build/src/drivers/aux/aux.o
+ .bss           0x00000000000869f0        0x0 build/src/drivers/aux/mini_uart.o
+ *(COMMON)
+                0x00000000000869f0                __bss_end = .
+                0x00000000000869f0                . = ALIGN (0x10)
+                0x00000000000869f0                __stack_el0_bottom = .
+                0x00000000005869f0                . = (. + 0x500000)
+                0x00000000005869f0                __stack_el0_top = .
+                0x00000000005869f0                __stack_el1_bottom = .
+                0x0000000000a869f0                . = (. + 0x500000)
+                0x0000000000a869f0                __stack_el1_top = .
+                0x0000000000a869f0                __stack_el2_bottom = .
+                0x0000000000f869f0                . = (. + 0x500000)
+                0x0000000000f869f0                __stack_el2_top = .
+                0x0000000000f869f0                __stack_el3_bottom = .
+                0x0000000000f8a9f0                . = (. + 0x4000)
+                0x0000000000f8a9f0                __stack_el3_top = .
+                0x0000000000086000                PROVIDE (_bss_start = __bss_start)
+                0x00000000000869f0                PROVIDE (_bss_end = __bss_end)
+                [!provide]                        PROVIDE (_stack_el0_top = __stack_el0_top)
+                [!provide]                        PROVIDE (_stack_el0_bottom = __stack_el0_bottom)
+                0x0000000000a869f0                PROVIDE (_stack_el1_top = __stack_el1_top)
+                0x00000000005869f0                PROVIDE (_stack_el1_bottom = __stack_el1_bottom)
+                [!provide]                        PROVIDE (_stack_el2_top = __stack_el2_top)
+                [!provide]                        PROVIDE (_stack_el2_bottom = __stack_el2_bottom)
+                [!provide]                        PROVIDE (_stack_el3_top = __stack_el3_top)
+                [!provide]                        PROVIDE (_stack_el3_bottom = __stack_el3_bottom)
+LOAD build/src/boot/boot.o
+LOAD build/src/boot/exception_level/save_stack_macros.o
+LOAD build/src/boot/exception_level/exception_level.o
+LOAD build/src/boot/exception_level/el1/el1_exception_vector.o
+LOAD build/src/boot/exception_level/el1/el1_core.o
+LOAD build/src/main.o
+LOAD build/src/boot/exception_level/el1/exceptions/serror_el1h.o
+LOAD build/src/boot/exception_level/el1/exceptions/fiq_el1t.o
+LOAD build/src/boot/exception_level/el1/exceptions/irq_el1t.o
+LOAD build/src/boot/exception_level/el1/exceptions/fiq_el0_32.o
+LOAD build/src/boot/exception_level/el1/exceptions/sync_el1h.o
+LOAD build/src/boot/exception_level/el1/exceptions/sync_el1t.o
+LOAD build/src/boot/exception_level/el1/exceptions/sync_el0_32.o
+LOAD build/src/boot/exception_level/el1/exceptions/serror_el0_64.o
+LOAD build/src/boot/exception_level/el1/exceptions/fiq_el0_64.o
+LOAD build/src/boot/exception_level/el1/exceptions/serror_el0_32.o
+LOAD build/src/boot/exception_level/el1/exceptions/sync_el0_64.o
+LOAD build/src/boot/exception_level/el1/exceptions/fiq_el1h.o
+LOAD build/src/boot/exception_level/el1/exceptions/irq_el1h.o
+LOAD build/src/boot/exception_level/el1/exceptions/irq_el0_32.o
+LOAD build/src/boot/exception_level/el1/exceptions/serror_el1t.o
+LOAD build/src/boot/exception_level/el1/exceptions/irq_el0_64.o
+LOAD build/src/kernel/io/uart/uart_io.o
+LOAD build/src/kernel/io/input_buffer.o
+LOAD build/src/kernel/init.o
+LOAD build/src/kernel/lib/debug/debug.o
+LOAD build/src/kernel/lib/buffer/buffer.o
+LOAD build/src/kernel/lib/string.o
+LOAD build/src/kernel/programs/shell/internal/state.o
+LOAD build/src/kernel/programs/shell/internal/command_executor.o
+LOAD build/src/kernel/programs/shell/internal/input_handler.o
+LOAD build/src/kernel/programs/shell/shell.o
+LOAD build/src/kernel/programs/program_registry.o
+LOAD build/src/kernel/programs/clear/clear.o
+LOAD build/src/kernel/programs/gpio/gpio.o
+LOAD build/src/drivers/gpio.o
+LOAD build/src/drivers/irq.o
+LOAD build/src/drivers/aux/aux.o
+LOAD build/src/drivers/aux/mini_uart.o
+OUTPUT(bin/kernel.elf elf64-littleaarch64)
+LOAD linker stubs
+
+.comment        0x0000000000000000       0x45
+ .comment       0x0000000000000000       0x45 build/src/main.o
+                                         0x46 (size before relaxing)
+ .comment       0x0000000000000045       0x46 build/src/boot/exception_level/el1/exceptions/serror_el1h.o
+ .comment       0x0000000000000045       0x46 build/src/boot/exception_level/el1/exceptions/fiq_el1t.o
+ .comment       0x0000000000000045       0x46 build/src/boot/exception_level/el1/exceptions/irq_el1t.o
+ .comment       0x0000000000000045       0x46 build/src/boot/exception_level/el1/exceptions/fiq_el0_32.o
+ .comment       0x0000000000000045       0x46 build/src/boot/exception_level/el1/exceptions/sync_el1h.o
+ .comment       0x0000000000000045       0x46 build/src/boot/exception_level/el1/exceptions/sync_el1t.o
+ .comment       0x0000000000000045       0x46 build/src/boot/exception_level/el1/exceptions/sync_el0_32.o
+ .comment       0x0000000000000045       0x46 build/src/boot/exception_level/el1/exceptions/serror_el0_64.o
+ .comment       0x0000000000000045       0x46 build/src/boot/exception_level/el1/exceptions/fiq_el0_64.o
+ .comment       0x0000000000000045       0x46 build/src/boot/exception_level/el1/exceptions/serror_el0_32.o
+ .comment       0x0000000000000045       0x46 build/src/boot/exception_level/el1/exceptions/sync_el0_64.o
+ .comment       0x0000000000000045       0x46 build/src/boot/exception_level/el1/exceptions/fiq_el1h.o
+ .comment       0x0000000000000045       0x46 build/src/boot/exception_level/el1/exceptions/irq_el1h.o
+ .comment       0x0000000000000045       0x46 build/src/boot/exception_level/el1/exceptions/irq_el0_32.o
+ .comment       0x0000000000000045       0x46 build/src/boot/exception_level/el1/exceptions/serror_el1t.o
+ .comment       0x0000000000000045       0x46 build/src/boot/exception_level/el1/exceptions/irq_el0_64.o
+ .comment       0x0000000000000045       0x46 build/src/kernel/io/uart/uart_io.o
+ .comment       0x0000000000000045       0x46 build/src/kernel/io/input_buffer.o
+ .comment       0x0000000000000045       0x46 build/src/kernel/init.o
+ .comment       0x0000000000000045       0x46 build/src/kernel/lib/debug/debug.o
+ .comment       0x0000000000000045       0x46 build/src/kernel/lib/buffer/buffer.o
+ .comment       0x0000000000000045       0x46 build/src/kernel/lib/string.o
+ .comment       0x0000000000000045       0x46 build/src/kernel/programs/shell/internal/state.o
+ .comment       0x0000000000000045       0x46 build/src/kernel/programs/shell/internal/command_executor.o
+ .comment       0x0000000000000045       0x46 build/src/kernel/programs/shell/internal/input_handler.o
+ .comment       0x0000000000000045       0x46 build/src/kernel/programs/shell/shell.o
+ .comment       0x0000000000000045       0x46 build/src/kernel/programs/program_registry.o
+ .comment       0x0000000000000045       0x46 build/src/kernel/programs/clear/clear.o
+ .comment       0x0000000000000045       0x46 build/src/kernel/programs/gpio/gpio.o
+ .comment       0x0000000000000045       0x46 build/src/drivers/gpio.o
+ .comment       0x0000000000000045       0x46 build/src/drivers/irq.o
+ .comment       0x0000000000000045       0x46 build/src/drivers/aux/aux.o
+ .comment       0x0000000000000045       0x46 build/src/drivers/aux/mini_uart.o

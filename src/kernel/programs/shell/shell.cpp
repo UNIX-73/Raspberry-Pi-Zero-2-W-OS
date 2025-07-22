@@ -5,27 +5,27 @@
 #include <kernel/io/uart/uart_io.hpp>
 
 static bool init = false;
-static const size_t TEMPORAL_INPUT_BUFFER_SIZE = 32;
+static const size_t UNREAD_INPUT_BUFFER_SIZE = 32;
 
 namespace kernel::programs::shell
 {
     using namespace kernel::programs::shell::internal;
-    uint64_t run(uint64_t program_id, const char *args)
+    uint64_t run(uint64_t program_id, char *args)
     {
         kernel::io::input_buffer::subscribe(program_id);
         init = true;
 
         kernel::io::uart::uart_io::send("\n\r>");
 
-        uint8_t unread[TEMPORAL_INPUT_BUFFER_SIZE] = {};
+        uint8_t unread_buffer[UNREAD_INPUT_BUFFER_SIZE] = {};
 
         while (init)
         {
-            size_t unread_len = kernel::io::input_buffer::ib_read_unread(program_id, unread, TEMPORAL_INPUT_BUFFER_SIZE);
+            size_t unread_len = kernel::io::input_buffer::ib_read_unread(program_id, unread_buffer, UNREAD_INPUT_BUFFER_SIZE);
 
             for (uint32_t i = 0; i < unread_len; i++)
             {
-                input_handler::handle_input_char(unread[i]);
+                input_handler::handle_input_char(unread_buffer[i]);
             }
 
             for (uint32_t i = 0; i < 20000; i++)

@@ -44,6 +44,10 @@
 .endm
 
 .macro wrap_vector label
+    mov x1, sp
+    and x1, x1, #-16
+    mov sp, x1
+    
     save_stack_64
     bl \label
     load_stack_64

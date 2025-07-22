@@ -5,7 +5,7 @@
 
 namespace kernel::programs::shell
 {
-    uint64_t run(uint64_t program_id, const char *args);
+    uint64_t run(uint64_t program_id, char *args);
 
     void reset();
 }

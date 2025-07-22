@@ -2,15 +2,16 @@
 #include <kernel/programs/shell/internal/input_handler.hpp>
 #include <kernel/programs/shell/internal/state.hpp>
 #include <kernel/programs/program_registry.hpp>
+#include <kernel/lib/string.hpp>
+#include <kernel/lib/debug/debug.hpp>
 
 namespace kernel::programs::shell::internal::command_executor
 {
-
     void execute_command()
     {
         internal::input_handler::send_to_frontend('\n');
 
-        // Get command name and command params
+        // Get command name and command args
         size_t name_idx = 0;
         char command_name[state::command_buffer_idx + 1] = {'\0'}; // Se debería inicializar con todo \0s
         size_t args_idx = 0;
@@ -40,12 +41,10 @@ namespace kernel::programs::shell::internal::command_executor
             }
         }
 
-        internal::state::command_buffer_idx = 0;
-
         // Execute
         ProgramDefinition *program = programs::registry::find_by_name(command_name);
 
-        if (program == nullptr || program->hidden)
+        if ((program == nullptr || program->hidden) && state::command_buffer[0] != '\0')
         {
             internal::input_handler::send_to_frontend("Unkown command: ");
             internal::input_handler::send_to_frontend(command_name);
@@ -56,6 +55,7 @@ namespace kernel::programs::shell::internal::command_executor
             program->entry(1234, command_args); // TODO: program id manager
         }
 
+        internal::state::command_buffer_idx = 0;
         internal::input_handler::send_to_frontend('>');
     }
 }

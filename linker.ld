@@ -7,13 +7,16 @@ SECTIONS {
 
     /* Código ejecutable */
     .text : ALIGN(4K) {
-        KEEP(*(.text.boot))  /* entrada en boot.S */
+        KEEP(*(.text.boot))
         *(.text*)
+        . = ALIGN(16);
     }
-
+    
     /* Datos solo lectura */
     .rodata : ALIGN(4K) {
-        *(.rodata*)
+        . = ALIGN(16); /* alinear el comienzo del contenido */
+        KEEP(*(.rodata .rodata.*))
+        . = ALIGN(16); /* alinear final */
     }
 
     /* Datos inicializados */

@@ -1,5 +1,5 @@
 arm_64bit=1
-uart_2ndstage=0
+uart_2ndstage=1
 core_freq=250
-disable_uart=1
-
+disable_uart=0
+kernel=kernel8.img

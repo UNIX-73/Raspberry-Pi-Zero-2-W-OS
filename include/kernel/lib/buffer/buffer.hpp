@@ -23,4 +23,7 @@ namespace kernel::lib::buffer
         }
         buffer[i] = '\0'; // null-terminación segura
     }
+
+
+
 }

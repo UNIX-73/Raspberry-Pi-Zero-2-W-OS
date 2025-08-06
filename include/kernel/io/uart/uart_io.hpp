@@ -8,8 +8,11 @@ namespace kernel::io::uart::uart_io
     void newline();
     void return_carriage();
 
-    void send(const char *s);
-    void sendln(const char *s);
+    extern "C"
+    {
+        void send(const char *s);
+        void sendln(const char *s);
+    }
 
     char uint32_to_char(uint32_t v);
 

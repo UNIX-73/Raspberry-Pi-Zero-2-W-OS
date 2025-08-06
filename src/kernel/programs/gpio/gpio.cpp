@@ -61,12 +61,7 @@ namespace kernel::programs::gpio
     using namespace lib::string::args;
     uint64_t run(uint64_t program_id, char *args)
     {
-        alignas(16) ParsedArgs parsed_args;
-        parsed_args.argc = 0;
-        lib::buffer::fill_buffer<char *>(nullptr, parsed_args.argv, PARSED_ARGS_MAX_COUNT);
-        // Hay que usar parse into en vez de un return en copia porque en copia salta error sync el1h por copiar datos desalineados entiendo yo
-        // TODO: cuando haga la mmu hacer esto más bonito
-        parse_into(args, &parsed_args);
+        ParsedArgs parsed_args = parse_args(args);
 
         // Check if arguments provided
         if (parsed_args.argc == 0)

@@ -96,5 +96,12 @@ namespace kernel::lib::string
                 }
             }
         }
+
+        ParsedArgs parse_args(char *raw)
+        {
+            ParsedArgs out;
+            parse_into(raw, &out);
+            return out;
+        }
     }
 }

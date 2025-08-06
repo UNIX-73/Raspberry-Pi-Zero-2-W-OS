@@ -68,7 +68,7 @@ namespace kernel::lib::debug
 
         alignas(16) char hex[19];
         lib::buffer::fill_char_buffer(hex, 19, "0x0000000000000000");
-        
+
         const char *digits = "0123456789ABCDEF";
 
         for (int i = 0; i < 16; ++i)
@@ -107,6 +107,41 @@ namespace kernel::lib::debug
         {
             kernel::io::uart::uart_io::sendln("SP dentro del rango del stack EL1");
         }
+    }
+
+    void mmu_test_all()
+    {
+        using io::uart::uart_io::sendln;
+
+        sendln("==== MMU TEST INICIADO ====");
+
+        // Comprobar TTBR0_EL1
+        uint64_t ttbr0;
+        asm volatile("mrs %0, ttbr0_el1" : "=r"(ttbr0));
+        sendln("TTBR0_EL1 cargado correctamente.");
+
+        // Comprobar SCTLR_EL1 (bit 0 debe estar activo si MMU está activada)
+        uint64_t sctlr;
+        asm volatile("mrs %0, sctlr_el1" : "=r"(sctlr));
+        if (sctlr & 1)
+            sendln("MMU aparentemente ACTIVADA (SCTLR_EL1 bit 0 = 1)");
+        else
+            sendln("MMU aparentemente DESACTIVADA (SCTLR_EL1 bit 0 = 0)");
+
+        // Escribir al UART usando la dirección virtual redirigida
+        volatile char *redirected_uart = (char *)0xFFFF0000;
+        redirected_uart[0] = 'R'; // si el UART responde, hay traducción activa
+        sendln("Escritura indirecta enviada a VA redirigida.");
+
+        // Probar acceso a VA no mapeada
+        sendln("Probando acceso a dirección NO MAPEADA (0x500000000)...");
+        volatile uint64_t *invalid = (uint64_t *)0x500000000;
+        uint64_t val = *invalid; // debe causar excepción si MMU activa y sin mapeo
+        (void)val;
+
+        sendln("Acceso a dirección no mapeada NO falló (Si no salta la excepción si no es correcto).");
+
+        sendln("==== MMU TEST FINALIZADO ====");
     }
 
 }

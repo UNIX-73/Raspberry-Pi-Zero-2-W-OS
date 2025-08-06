@@ -27,5 +27,7 @@ namespace kernel::lib::string
         };
 
         void parse_into(char *raw, ParsedArgs *out);
+
+        ParsedArgs parse_args(char *raw);
     }
 }

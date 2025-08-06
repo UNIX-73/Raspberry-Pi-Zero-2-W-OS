@@ -6,6 +6,8 @@
 #include <kernel/io/uart/uart_io.hpp>
 #include <kernel/programs/program_registry.hpp>
 #include <drivers/gpio.hpp>
+#include <boot/exception_level/el1/mmu/mmu.hpp>
+#include <kernel/lib/debug/debug.hpp>
 
 namespace kernel
 {
@@ -13,14 +15,31 @@ namespace kernel
     {
         if (read_el() != 1)
         {
+            AUX::MINI_UART::init();
+
+            __setup_init_el1_mmu();
             switch_to_el1(); // Sale de esta fn y vuelve a kernel main
         }
 
         if (read_el() == 1)
         {
+            kernel::lib::debug::debug_ptr_address((uint64_t *)&init_devices);
+
             irq_enable(); // msr daifclr, #2
             IRQ::enable_irq(IRQ::IRQ_OPTIONS::MINI_UART);
-            AUX::MINI_UART::init();
+
+            kernel::io::uart::uart_io::sendln("entered init_el1 from cpp");
+
+            static bool mmu_init = false;
+            if (!mmu_init)
+            {
+                mmu_init = true;
+                __init_el1_mmu();
+            }
+
+            kernel::io::uart::uart_io::sendln("exited init_el1 from cpp");
+
+            kernel::lib::debug::mmu_test_all();
         }
     }
 
@@ -28,7 +47,7 @@ namespace kernel
     {
         while (1)
         {
-            kernel::io::uart::uart_io::clear_screen();
+            // kernel::io::uart::uart_io::clear_screen();
             kernel::io::uart::uart_io::sendln("OS STARTED - (EL1)");
 
             kernel::programs::registry::find_by_name("shell")->entry(0x00000001, "");

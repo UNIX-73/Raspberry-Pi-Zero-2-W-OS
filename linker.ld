@@ -32,6 +32,16 @@ SECTIONS {
         __bss_end = .;
     }
 
+  /*
+        ID_PGD - Tabla de traducción nivel superior
+        Reservamos 6 páginas de 4 KiB alineadas a 4 KiB
+    */
+    .data.id_pgd : ALIGN(4K) {
+        id_pgd = .;
+        . += 6 * 0x1000;
+        __id_pgd_end = .;
+    }
+
     /* === STACKS POR NIVEL DE EXCEPCIÓN (cada uno 16 KiB) === */
     . = ALIGN(16);
 
@@ -54,6 +64,9 @@ SECTIONS {
     /* === EXPORTAMOS SÍMBOLOS PARA C Y ASM === */
     PROVIDE(_bss_start         = __bss_start);
     PROVIDE(_bss_end           = __bss_end);
+
+    PROVIDE(_id_pgd = id_pgd);
+    PROVIDE(_id_pgd_end = __id_pgd_end);
 
     PROVIDE(_stack_el0_top     = __stack_el0_top);
     PROVIDE(_stack_el0_bottom  = __stack_el0_bottom);

@@ -20,39 +20,11 @@
       "-Iinclude",
       "-c",
       "-o",
-      "build/src/main.o",
-      "src/main.cpp"
+      "build/src/drivers/mailbox/mailbox.o",
+      "src/drivers/mailbox/mailbox.cpp"
     ],
     "directory": "/home/unab/Desktop/Projects/BAREMETAL/Raspberry Pi Zero 2 W OS",
-    "file": "/home/unab/Desktop/Projects/BAREMETAL/Raspberry Pi Zero 2 W OS/src/main.cpp",
-    "output": "/home/unab/Desktop/Projects/BAREMETAL/Raspberry Pi Zero 2 W OS/build/src/main.o"
-  },
-  {
-    "arguments": [
-      "/usr/bin/aarch64-none-elf-g++",
-      "-DDEBUG",
-      "-DSAFE",
-      "-Wall",
-      "-Wextra",
-      "-Wno-unused-parameter",
-      "-Wno-missing-field-initializers",
-      "-ffreestanding",
-      "-O2",
-      "-mabi=lp64",
-      "-march=armv8-a",
-      "-mtune=cortex-a53",
-      "-fno-rtti",
-      "-fno-exceptions",
-      "-fno-threadsafe-statics",
-      "-fno-use-cxa-atexit",
-      "-Iinclude",
-      "-c",
-      "-o",
-      "build/src/kernel/init.o",
-      "src/kernel/init.cpp"
-    ],
-    "directory": "/home/unab/Desktop/Projects/BAREMETAL/Raspberry Pi Zero 2 W OS",
-    "file": "/home/unab/Desktop/Projects/BAREMETAL/Raspberry Pi Zero 2 W OS/src/kernel/init.cpp",
-    "output": "/home/unab/Desktop/Projects/BAREMETAL/Raspberry Pi Zero 2 W OS/build/src/kernel/init.o"
+    "file": "/home/unab/Desktop/Projects/BAREMETAL/Raspberry Pi Zero 2 W OS/src/drivers/mailbox/mailbox.cpp",
+    "output": "/home/unab/Desktop/Projects/BAREMETAL/Raspberry Pi Zero 2 W OS/build/src/drivers/mailbox/mailbox.o"
   }
 ]

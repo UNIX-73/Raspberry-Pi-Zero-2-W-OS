@@ -8,6 +8,7 @@
 #include <drivers/gpio.hpp>
 #include <boot/exception_level/el1/mmu/mmu.hpp>
 #include <kernel/lib/debug/debug.hpp>
+#include <drivers/mailbox/clock/clock.hpp>
 
 namespace kernel
 {
@@ -49,6 +50,10 @@ namespace kernel
         {
             // kernel::io::uart::uart_io::clear_screen();
             kernel::io::uart::uart_io::sendln("OS STARTED - (EL1)");
+
+            uint32_t cr = drivers::mailbox::clock::mailbox_read_clock_rate(drivers::mailbox::clock::ClockType::CT_CORE);
+
+            kernel::lib::debug::debug_print_hex_u64(cr);
 
             kernel::programs::registry::find_by_name("shell")->entry(0x00000001, "");
 

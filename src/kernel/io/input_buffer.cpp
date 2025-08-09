@@ -19,7 +19,7 @@ namespace kernel::io::input_buffer
     static InputBufferProgram subscribed_programs[MAX_SUBSCRIBED_PROGRAMS] = {};
 
     static uint8_t buffer[INPUT_BUFFER_SIZE] = {0};
-    static uint8_t write_idx = 0;
+    static uint32_t write_idx = 0;
 
     void subscribe(uint64_t program_id)
     {
@@ -142,31 +142,40 @@ namespace kernel::io::input_buffer
      */
     size_t ib_read_unread(uint64_t program_id, uint8_t *buf, size_t max_len)
     {
+        volatile uint32_t atomic_write_idx = write_idx; // ver §2
         if (program_buffer_overflows(max_len))
             return 0;
 
         int32_t program_idx = find_subscribed_program_idx(program_id);
         if (program_idx < 0)
         {
-#ifdef DEBUG
-            kernel::io::uart::sendln("\n\r!Program was not subscribed to input");
-#endif
             kernel::lib::buffer::fill_buffer<uint8_t>(0, buf, max_len);
             return 0;
         }
 
-        size_t unread_len = (write_idx + INPUT_BUFFER_SIZE - subscribed_programs[program_idx].read_idx) % INPUT_BUFFER_SIZE;
-        size_t i = 0;
-        while (subscribed_programs[program_idx].read_idx != write_idx)
-        {
-            size_t read_idx = subscribed_programs[program_idx].read_idx;
+        // nº total disponible en el ring
+        size_t unread_total =
+            (atomic_write_idx + INPUT_BUFFER_SIZE - subscribed_programs[program_idx].read_idx) % INPUT_BUFFER_SIZE;
 
-            buf[i] = buffer[read_idx];
-            subscribed_programs[program_idx].read_idx = (subscribed_programs[program_idx].read_idx + 1) % INPUT_BUFFER_SIZE;
-            i++;
+        // sólo copiamos hasta max_len
+        size_t to_copy = (unread_total > max_len) ? max_len : unread_total;
+
+        for (size_t i = 0; i < to_copy; i++)
+        {
+            size_t r = subscribed_programs[program_idx].read_idx;
+            buf[i] = buffer[r];
+            subscribed_programs[program_idx].read_idx = (r + 1) % INPUT_BUFFER_SIZE;
         }
 
-        return unread_len;
+        // si había más de max_len, adelantamos el read_idx para “descartar” el resto (o quita esto si prefieres mantenerlo)
+        size_t discard = unread_total - to_copy;
+        if (discard)
+        {
+            subscribed_programs[program_idx].read_idx =
+                (subscribed_programs[program_idx].read_idx + discard) % INPUT_BUFFER_SIZE;
+        }
+
+        return to_copy; // devolvemos lo realmente copiado
     }
 
     void ib_reset()
@@ -177,5 +186,4 @@ namespace kernel::io::input_buffer
             subscribed_programs[i] = {};
         }
     }
-
 }

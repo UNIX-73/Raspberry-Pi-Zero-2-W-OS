@@ -72,40 +72,38 @@ namespace kernel::programs::sysmon::internal
 
         // Clocks
         send("Core Clock: ");
-        u64_to_ascii(info.core_clock_rate / 1000000, text_buff, sizeof(text_buff));
-        send(text_buff);
+        send(u64_to_ascii(info.core_clock_rate / 1000000, text_buff, sizeof(text_buff)));
         sendln(" MHz");
+
         send("ARM Clock:  ");
-        u64_to_ascii(info.arm_clock_rate / 1000000, text_buff, sizeof(text_buff));
-        send(text_buff);
+        send(u64_to_ascii(info.arm_clock_rate / 1000000, text_buff, sizeof(text_buff)));
         sendln(" MHz");
+
         send("UART Clock: ");
-        u64_to_ascii(info.uart_clock_rate / 1000000, text_buff, sizeof(text_buff));
-        send(text_buff);
+        send(u64_to_ascii(info.uart_clock_rate / 1000000, text_buff, sizeof(text_buff)));
         sendln(" MHz");
+
         send("eMMC Clock: ");
-        u64_to_ascii(info.emmc_clock_rate / 1000000, text_buff, sizeof(text_buff));
-        send(text_buff);
+        send(u64_to_ascii(info.emmc_clock_rate / 1000000, text_buff, sizeof(text_buff)));
         sendln(" MHz");
 
         // Temperatures
         send("SoC Temp:  ");
-        u64_to_ascii(info.soc_temp / 1000, text_buff, sizeof(text_buff));
-        send(text_buff);
-        sendln(" °C");
-        send("PCB Temp:  ");
-        u64_to_ascii(info.pcb_temp / 1000, text_buff, sizeof(text_buff));
-        send(text_buff);
-        sendln(" °C");
-        send("SoC Max:   ");
-        u64_to_ascii(info.soc_max_temp / 1000, text_buff, sizeof(text_buff));
-        send(text_buff);
-        sendln(" °C");
-        send("PCB Max:   ");
-        u64_to_ascii(info.pcb_max_temp / 1000, text_buff, sizeof(text_buff));
-        send(text_buff);
+        send(u64_to_ascii(info.soc_temp / 1000, text_buff, sizeof(text_buff)));
         sendln(" °C");
 
-        sendln("===============================================");
+        send("PCB Temp:  ");
+        send(u64_to_ascii(info.pcb_temp / 1000, text_buff, sizeof(text_buff)));
+        sendln(" °C");
+
+        send("SoC Max:   ");
+        send(u64_to_ascii(info.soc_max_temp / 1000, text_buff, sizeof(text_buff)));
+        sendln(" °C");
+
+        send("PCB Max:   ");
+        send(u64_to_ascii(info.pcb_max_temp / 1000, text_buff, sizeof(text_buff)));
+        sendln(" °C");
+
+        sendln("================================================");
     };
 }

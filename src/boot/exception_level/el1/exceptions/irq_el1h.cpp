@@ -3,6 +3,7 @@
 #include <drivers/aux/aux.hpp>
 
 #include <kernel/io/input_buffer.hpp>
+#include <kernel/io/uart/uart_io.hpp>
 
 extern "C" void irq_el1h(void)
 {

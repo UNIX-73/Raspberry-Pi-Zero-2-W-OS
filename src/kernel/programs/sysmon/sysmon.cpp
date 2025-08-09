@@ -27,21 +27,24 @@ namespace kernel::programs::sysmon
         {
             size_t unread_len = kernel::io::input_buffer::ib_read_unread(program_id, unread_input, UNREAD_INPUT_BUFFER_SIZE);
 
-            for (uint32_t i = 0; i < unread_len; i++)
+            for (uint32_t i = 0; i < unread_len && i < UNREAD_INPUT_BUFFER_SIZE; i++)
             {
+
                 char c = (char)unread_input[i];
 
                 if (c == 0x03) // Ctrl + C
-                {
-                    exit();
-                }
+                    return exit();
             }
 
-            if (++loop_count >= 500000) // TODO: timer irq
+            loop_count++;
+            if (loop_count >= 5000000) // TODO: timer irq
             {
                 internal::print_info();
                 loop_count = 0;
             }
+
+            // for (volatile int k = 0; k < 2000; k++)
+            //     asm("nop");
         }
 
         return exit();

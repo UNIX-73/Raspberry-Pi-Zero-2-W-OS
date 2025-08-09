@@ -66,8 +66,8 @@ namespace kernel::programs::gpio
         // Check if arguments provided
         if (parsed_args.argc == 0)
         {
-            io::uart::uart_io::sendln("Error: no arguments provided.");
-            io::uart::uart_io::sendln("Usage: gpio [-i | --input] <pin> | [-o | --output] <pin> | [-s | status] <pin>");
+            io::uart::sendln("Error: no arguments provided.");
+            io::uart::sendln("Usage: gpio [-i | --input] <pin> | [-o | --output] <pin> | [-s | status] <pin>");
             return 1;
         }
 
@@ -84,14 +84,14 @@ namespace kernel::programs::gpio
 
         if (valid_arg == nullptr)
         {
-            io::uart::uart_io::sendln("Error: unknown argument.");
-            io::uart::uart_io::sendln("Usage: gpio [-i | --input] <pin> | [-o | --output] <pin> | [-s | status] <pin>");
+            io::uart::sendln("Error: unknown argument.");
+            io::uart::sendln("Usage: gpio [-i | --input] <pin> | [-o | --output] <pin> | [-s | status] <pin>");
             return 1;
         }
 
         if (parsed_args.argc < 2)
         {
-            io::uart::uart_io::sendln("Error: missing pin number.");
+            io::uart::sendln("Error: missing pin number.");
             return 1;
         }
 
@@ -103,7 +103,7 @@ namespace kernel::programs::gpio
         {
             if (!lib::string::char_is_digit(arg2[i]))
             {
-                io::uart::uart_io::sendln("Error: pin must be a number.");
+                io::uart::sendln("Error: pin must be a number.");
                 return 1;
             }
             pin = pin * 10 + lib::string::ascii_to_uint8(arg2[i]);
@@ -112,7 +112,7 @@ namespace kernel::programs::gpio
         // If pin > 39 does not exist
         if (pin > 39)
         {
-            io::uart::uart_io::sendln("Error: pin number must be between 0 and 39.");
+            io::uart::sendln("Error: pin number must be between 0 and 39.");
             return 1;
         }
 

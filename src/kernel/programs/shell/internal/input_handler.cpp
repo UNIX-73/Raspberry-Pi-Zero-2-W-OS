@@ -52,18 +52,18 @@ namespace kernel::programs::shell::internal::input_handler
 
         if (c == '\b')
         {
-            kernel::io::uart::uart_io::send("\b \b");
+            kernel::io::uart::send("\b \b");
             return;
         }
 
         if (c == '\n' || c == '\r')
         {
-            kernel::io::uart::uart_io::newline();
-            kernel::io::uart::uart_io::return_carriage();
+            kernel::io::uart::newline();
+            kernel::io::uart::return_carriage();
             return;
         }
 
-        kernel::io::uart::uart_io::putchar(c);
+        kernel::io::uart::putchar(c);
     }
 
     void send_to_frontend(const char *str)

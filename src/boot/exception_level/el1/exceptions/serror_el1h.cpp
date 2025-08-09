@@ -3,5 +3,5 @@
 
 extern "C" void serror_el1h(void)
 {
-    kernel::io::uart::uart_io::sendln("serror_el1h exception not implemented!");
+    kernel::io::uart::sendln("serror_el1h exception not implemented!");
 }

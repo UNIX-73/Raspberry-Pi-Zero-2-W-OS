@@ -15,17 +15,18 @@ namespace kernel::programs::shell
         kernel::io::input_buffer::subscribe(program_id);
         init = true;
 
-        kernel::io::uart::uart_io::send("\n\r>");
+        kernel::io::uart::send("\n\r>");
+        kernel::io::uart::show_cursor();
 
-        uint8_t unread_buffer[UNREAD_INPUT_BUFFER_SIZE] = {};
+        uint8_t unread_input[UNREAD_INPUT_BUFFER_SIZE] = {};
 
         while (init)
         {
-            size_t unread_len = kernel::io::input_buffer::ib_read_unread(program_id, unread_buffer, UNREAD_INPUT_BUFFER_SIZE);
+            size_t unread_len = kernel::io::input_buffer::ib_read_unread(program_id, unread_input, UNREAD_INPUT_BUFFER_SIZE);
 
             for (uint32_t i = 0; i < unread_len; i++)
             {
-                input_handler::handle_input_char(unread_buffer[i]);
+                input_handler::handle_input_char(unread_input[i]);
             }
 
             for (uint32_t i = 0; i < 20000; i++)

@@ -6,7 +6,7 @@ namespace drivers::mailbox::temperature
 {
     enum class TemperatureSensor : uint32_t
     {
-        CPU_SENSOR = 0,
+        SOC_SENSOR = 0,
         PCB_SENSOR = 1,
     };
 

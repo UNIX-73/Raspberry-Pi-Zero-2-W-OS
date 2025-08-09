@@ -3,13 +3,16 @@
 #include <kernel/programs/shell/shell.hpp>
 #include <kernel/programs/clear/clear.hpp>
 #include <kernel/programs/gpio/gpio.hpp>
+#include <kernel/programs/sysmon/sysmon.hpp>
 
 namespace kernel::programs::registry
 {
     static ProgramDefinition kernel_programs[] = {
         {"shell", "", shell::run, false},
         {"clear", "Clears the screen", clear::run, false},
-        {"gpio", "Allows control of the GPIO pins", gpio::run, false}};
+        {"gpio", "Allows control of the GPIO pins", gpio::run, false},
+        {"sysmon",
+         "System Monitor - Shows the system information and status", sysmon::run, false}};
 
     ProgramDefinition *find_by_name(const char *name)
     {

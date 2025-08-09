@@ -3,5 +3,5 @@
 
 extern "C" void irq_el1t(void)
 {
-    kernel::io::uart::uart_io::sendln("irq_el1t exception not implemented!");
+    kernel::io::uart::sendln("irq_el1t exception not implemented!");
 }

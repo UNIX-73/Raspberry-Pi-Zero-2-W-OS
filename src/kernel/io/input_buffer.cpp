@@ -98,7 +98,7 @@ namespace kernel::io::input_buffer
         {
 
 #ifdef DEBUG
-            kernel::io::uart::uart_io::sendln("\n\r!Requested input buffer max len is bigger than the input buffer size");
+            kernel::io::uart::sendln("\n\r!Requested input buffer max len is bigger than the input buffer size");
 #endif
             return true;
         }
@@ -149,7 +149,7 @@ namespace kernel::io::input_buffer
         if (program_idx < 0)
         {
 #ifdef DEBUG
-            kernel::io::uart::uart_io::sendln("\n\r!Program was not subscribed to input");
+            kernel::io::uart::sendln("\n\r!Program was not subscribed to input");
 #endif
             kernel::lib::buffer::fill_buffer<uint8_t>(0, buf, max_len);
             return 0;

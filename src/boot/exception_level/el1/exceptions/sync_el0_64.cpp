@@ -3,5 +3,5 @@
 
 extern "C" void sync_el0_64(void)
 {
-    kernel::io::uart::uart_io::sendln("sync_el0_64 exception not implemented!");
+    kernel::io::uart::sendln("sync_el0_64 exception not implemented!");
 }

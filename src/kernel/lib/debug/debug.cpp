@@ -12,11 +12,11 @@ namespace kernel::lib::debug
 
         if (sp % 16 == 0)
         {
-            io::uart::uart_io::send("stack alineado\n\r");
+            io::uart::send("stack alineado\n\r");
         }
         else
         {
-            io::uart::uart_io::send("stack desalineado!\n\r");
+            io::uart::send("stack desalineado!\n\r");
         }
 #endif
     }
@@ -24,8 +24,8 @@ namespace kernel::lib::debug
     void debug_send(const char *msg)
     {
 #ifdef DEBUG
-        io::uart::uart_io::send("[DEBUG]=");
-        io::uart::uart_io::send(msg);
+        io::uart::send("[DEBUG]=");
+        io::uart::send(msg);
 #endif
     }
 
@@ -33,8 +33,8 @@ namespace kernel::lib::debug
     {
 #ifdef DEBUG
         debug_send(msg);
-        io::uart::uart_io::newline();
-        io::uart::uart_io::return_carriage();
+        io::uart::newline();
+        io::uart::return_carriage();
 #endif
     }
 
@@ -56,8 +56,8 @@ namespace kernel::lib::debug
 
         buffer[18] = '\0';
 
-        io::uart::uart_io::send(reinterpret_cast<char *>(buffer));
-        io::uart::uart_io::send("\n\r");
+        io::uart::send(reinterpret_cast<char *>(buffer));
+        io::uart::send("\n\r");
 #endif
     }
 
@@ -77,7 +77,7 @@ namespace kernel::lib::debug
             val >>= 4;
         }
 
-        io::uart::uart_io::sendln(hex);
+        io::uart::sendln(hex);
 #endif
     }
 
@@ -101,17 +101,17 @@ namespace kernel::lib::debug
 
         if (sp < reinterpret_cast<uint64_t>(&_stack_el1_bottom) || sp >= reinterpret_cast<uint64_t>(&_stack_el1_top))
         {
-            kernel::io::uart::uart_io::sendln("SP fuera de rango del stack EL1");
+            kernel::io::uart::sendln("SP fuera de rango del stack EL1");
         }
         else
         {
-            kernel::io::uart::uart_io::sendln("SP dentro del rango del stack EL1");
+            kernel::io::uart::sendln("SP dentro del rango del stack EL1");
         }
     }
 
     void mmu_test_all()
     {
-        using io::uart::uart_io::sendln;
+        using io::uart::sendln;
 
         sendln("==== MMU TEST INICIADO ====");
 

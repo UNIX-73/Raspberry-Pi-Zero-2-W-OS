@@ -3,5 +3,5 @@
 
 extern "C" void fiq_el1h(void)
 {
-    kernel::io::uart::uart_io::sendln("fiq_el1h exception not implemented!");
+    kernel::io::uart::sendln("fiq_el1h exception not implemented!");
 }

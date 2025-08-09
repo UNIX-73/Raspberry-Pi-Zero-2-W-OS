@@ -1,7 +1,7 @@
 #include <kernel/io/uart/uart_io.hpp>
 #include <drivers/aux/mini_uart.hpp>
 
-namespace kernel::io::uart::uart_io
+namespace kernel::io::uart
 {
     void putchar(char c)
     {
@@ -45,10 +45,5 @@ namespace kernel::io::uart::uart_io
         {
             return '?';
         }
-    }
-
-    void clear_screen()
-    {
-        send("\033[2J\033[H");
     }
 }

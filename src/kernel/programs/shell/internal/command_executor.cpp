@@ -4,6 +4,7 @@
 #include <kernel/programs/program_registry.hpp>
 #include <kernel/lib/string.hpp>
 #include <kernel/lib/debug/debug.hpp>
+#include <kernel/io/uart/uart_io.hpp>
 
 namespace kernel::programs::shell::internal::command_executor
 {
@@ -57,5 +58,6 @@ namespace kernel::programs::shell::internal::command_executor
 
         internal::state::command_buffer_idx = 0;
         internal::input_handler::send_to_frontend('>');
+        kernel::io::uart::show_cursor();
     }
 }

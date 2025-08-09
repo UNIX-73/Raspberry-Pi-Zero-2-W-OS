@@ -86,7 +86,7 @@ void create_block_map(uint64_t pmd, uint64_t vstart, uint64_t vend, uint64_t pa)
 
 void init_el1_mmu_table()
 {
-    kernel::io::uart::uart_io::sendln("init_el1_mmu_table start");
+    kernel::io::uart::sendln("init_el1_mmu_table start");
 
     uint64_t id_pgd = __id_pgd_addr();
 
@@ -119,5 +119,5 @@ void init_el1_mmu_table()
         create_block_map(block_tbl, offset, offset + BLOCK_SIZE, offset);
     }
 
-    kernel::io::uart::uart_io::sendln("init_el1_mmu_table end");
+    kernel::io::uart::sendln("init_el1_mmu_table end");
 }

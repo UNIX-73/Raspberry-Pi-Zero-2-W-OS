@@ -11,6 +11,6 @@ namespace drivers::mailbox::clock
         CT_CORE = 4
     };
 
-    uint32_t mailbox_read_clock_rate(ClockType ct);
+    uint32_t read_clock_rate(ClockType ct);
 
 }

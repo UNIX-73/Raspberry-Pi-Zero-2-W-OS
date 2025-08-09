@@ -1,19 +1,20 @@
-#include <drivers/mailbox/clock/clock.hpp>
+#include <drivers/mailbox/clock.hpp>
 #include <drivers/mailbox/mailbox.hpp>
-#include <drivers/mailbox/mailbox_tags.hpp>
+#include <drivers/mailbox/core/mailbox_tags.hpp>
 
 namespace drivers::mailbox::clock
 {
-    uint32_t mailbox_read_clock_rate(ClockType ct)
+    uint32_t read_clock_rate(ClockType clock_type)
     {
-        MailboxGeneric c;
-        c.tag.id = tags::RPI_FIRMWARE_GET_CLOCK_RATE;
-        c.tag.value_length = 0;
-        c.tag.buffer_size = sizeof(c) - sizeof(c.tag);
-        c.id = (uint32_t)ct;
+        uint32_t rate = 0;
 
-        mailbox_process((MailboxTag *)&c, sizeof(c));
+        bool result = mailbox_generic_command(tags::RPI_FIRMWARE_GET_CLOCK_RATE, (uint32_t)clock_type, &rate);
 
-        return c.value;
+        if (!result)
+        {
+            // TODO: panic()
+        }
+
+        return rate;
     }
 }

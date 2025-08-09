@@ -1,5 +1,5 @@
 #include <drivers/mailbox/mailbox.hpp>
-#include <drivers/mailbox/mailbox_tags.hpp>
+#include <drivers/mailbox/core/mailbox_tags.hpp>
 #include <drivers/peripherals.hpp>
 #include <lib/mem.hpp>
 

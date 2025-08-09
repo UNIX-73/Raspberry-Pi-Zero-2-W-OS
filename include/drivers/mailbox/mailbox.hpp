@@ -1,6 +1,7 @@
 #pragma once
+
 #include <cstdint>
-#include <drivers/mailbox/mailbox_constants.hpp>
+#include <drivers/mailbox/core/mailbox_constants.hpp>
 #include <drivers/utils/mapped_reg.hpp>
 
 namespace drivers::mailbox

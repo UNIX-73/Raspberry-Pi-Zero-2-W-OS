@@ -1,7 +1,8 @@
 {
-  "files.associations": {
-    "cstdint": "cpp",
-    "cstddef": "cpp"
-  },
-  "C_Cpp.default.compileCommands": ["${workspaceFolder}/compile_commands.json"]
+  "C_Cpp.intelliSenseEngine": "Disabled",
+  "clangd.arguments": [
+    "--background-index",
+    "--header-insertion=never",
+    "--query-driver=/usr/bin/aarch64-none-elf-*"
+  ]
 }

@@ -1,0 +1,11 @@
+CompileFlags:
+  # Quita el flag problemático que viene de compile_commands.json
+  Remove: ["-mabi=*"]
+
+  # (Opcional) añade flags útiles si alguna TU no los trae
+  Add: ["-target", "aarch64-none-elf", "-mcpu=cortex-a53", "-march=armv8-a",
+        "-ffreestanding", "-fno-exceptions", "-fno-rtti", "-fno-threadsafe-statics",
+        "-nostdlib", "-nostartfiles"]
+
+# Si compilas también C, clangd a veces pregunta al gcc para includes (ya lo hace bien en tu log).
+# QueryDriver: [/usr/bin/aarch64-none-elf-*]

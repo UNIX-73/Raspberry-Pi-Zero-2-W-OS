@@ -14,10 +14,16 @@ OBJDUMP  := $(CROSS)objdump
 # Flags
 # ============================
 
+CPP_STL := 	-isystem /usr/aarch64-none-elf/include/c++/14.2.1 \
+        	-isystem /usr/aarch64-none-elf/include/c++/14.2.1/aarch64-none-elf \
+            -isystem /usr/aarch64-none-elf/include/c++/14.2.1/backward \
+            -isystem /usr/lib/gcc/aarch64-none-elf/14.2.1/include-fixed \
+            -isystem /usr/aarch64-none-elf/include
+
 DEFINES := -DDEBUG -DSAFE
 
-CFLAGS   := $(DEFINES) -Wall -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -ffreestanding -O2 -nostdlib -nostartfiles -mabi=lp64 -march=armv8-a -mtune=cortex-a53
-CXXFLAGS := $(CFLAGS) -fno-rtti -fno-exceptions -fno-threadsafe-statics -fno-use-cxa-atexit
+CFLAGS   := $(DEFINES) -std=c23 -Wall -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -ffreestanding -O2 -nostdlib -nostartfiles -mabi=lp64 -march=armv8-a -mtune=cortex-a53
+CXXFLAGS := $(CFLAGS) $(CPP_STL) -std=c++20 -fno-rtti -fno-exceptions -fno-threadsafe-statics -fno-use-cxa-atexit
 INCLUDE_DIRS := -Iinclude
 
 # ============================

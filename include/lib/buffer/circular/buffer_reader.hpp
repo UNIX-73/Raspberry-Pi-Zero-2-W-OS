@@ -3,26 +3,18 @@
 
 namespace lib::buffer::circular::reader
 {
+	template <typename T, size_t SIZE> struct CircularBufferReader
+	{
+	  private:
+		CircularBuffer<T, SIZE> const *buffer{nullptr};
+		size_t read_idx;
 
-    template <typename T, size_t SIZE>
-    struct CircularBufferReader
-    {
-        CircularBuffer<T, SIZE> const *buffer;
-        size_t read_idx;
-    };
+	  public:
+		static CircularBufferReader<T, SIZE> build(CircularBuffer<T, SIZE> const *buff);
+		inline size_t available() const;
+		size_t read_unread(T *out_buf, size_t buf_len);
+		void reset(); // Sets read idx to write idx
+	};
+} // namespace lib::buffer::circular::reader
 
-    template <typename T, size_t SIZE>
-    CircularBufferReader<T, SIZE> build(CircularBuffer<T, SIZE> *buff)
-    {
-        return CircularBufferReader{
-            .buffer = buff,
-            .read_idx = snapshot_write_idx(buff),
-        };
-    }
-
-    template <typename T, size_t SIZE>
-    size_t available_count(CircularBufferReader<T, SIZE> *buff_reader);
-
-    template <typename T, size_t SIZE>
-    bool pop(T[]);
-}
+#include <lib/buffer/circular/tpp/circular_reader.tpp>

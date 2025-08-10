@@ -3,6 +3,10 @@
   "clangd.arguments": [
     "--background-index",
     "--header-insertion=never",
-    "--query-driver=/usr/bin/aarch64-none-elf-*"
-  ]
+    "--query-driver=/usr/bin/aarch64-none-elf-*",
+    "--fallback-style=GNU"
+  ],
+  "[cpp]": {
+    "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd"
+  }
 }

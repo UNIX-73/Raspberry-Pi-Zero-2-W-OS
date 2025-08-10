@@ -13,4 +13,4 @@ namespace kernel::io::input_buffer
     size_t ib_read_unread(uint64_t program_id, uint8_t *buf, size_t max_len);
     void ib_get_data(uint8_t *buf, size_t max_len);
     void ib_reset();
-}
+} 

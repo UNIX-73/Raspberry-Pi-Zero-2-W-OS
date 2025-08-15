@@ -43,23 +43,35 @@ SECTIONS {
     }
 
     /* === STACKS POR NIVEL DE EXCEPCIÓN (cada uno 16 KiB) === */
-    . = ALIGN(16);
+   .stacks (NOLOAD) : ALIGN(4096) {
+        /* EL0 */
+        . = ALIGN(16);
+        __stack_el0_bottom = .;
+        . += 0x500000;              /* 5 MiB */
+        . = ALIGN(16);
+        __stack_el0_top = .;
 
-    __stack_el0_bottom = .;
-    . += 0x500000;
-    __stack_el0_top = .;
+        /* EL1 */
+        . = ALIGN(16);
+        __stack_el1_bottom = .;
+        . += 0x500000;              /* 5 MiB */
+        . = ALIGN(16);
+        __stack_el1_top = .;
 
-    __stack_el1_bottom = .;
-    . += 0x500000;
-    __stack_el1_top = .;
+        /* EL2 */
+        . = ALIGN(16);
+        __stack_el2_bottom = .;
+        . += 0x500000;              /* 5 MiB */
+        . = ALIGN(16);
+        __stack_el2_top = .;
 
-    __stack_el2_bottom = .;
-    . += 0x500000;
-    __stack_el2_top = .;
-
-    __stack_el3_bottom = .;
-    . += 0x4000;
-    __stack_el3_top = .;
+        /* EL3 */
+        . = ALIGN(16);
+        __stack_el3_bottom = .;
+        . += 0x4000;                /* 16 KiB */
+        . = ALIGN(16);
+        __stack_el3_top = .;
+    }
 
     /* === EXPORTAMOS SÍMBOLOS PARA C Y ASM === */
     PROVIDE(_bss_start         = __bss_start);

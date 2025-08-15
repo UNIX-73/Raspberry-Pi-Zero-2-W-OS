@@ -22,7 +22,7 @@ void AUX::MINI_UART::init()
 	*MU_IER_REG_ADDR_PTR = 0b0;
 
 	// Clear FIFOs (TX & RX)
-	*MU_IIR_REG_ADDR_PTR = 0b11;
+	*MU_IIR_REG_ADDR_PTR = (1u << 1) | (1u << 2);
 
 	// Set 8 bit transmision
 	*MU_LCR_REG_ADDR_PTR = 0b11; // 8-bit + DLAB = 1

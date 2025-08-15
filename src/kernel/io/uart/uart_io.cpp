@@ -1,5 +1,3 @@
-#include "boot/exception_level/exception_level.hpp"
-
 #include <drivers/aux/mini_uart.hpp>
 #include <drivers/irq.hpp>
 #include <kernel/io/uart/uart_io.hpp>
@@ -12,9 +10,7 @@ namespace kernel::io::uart
 		{
 			asm volatile("nop");
 		}
-		asm volatile("dmb ish"); // Asegura orden de lecturas previas
 		AUX::MINI_UART::write(c);
-		asm volatile("dmb ish"); // Asegura que la write salga
 	}
 
 	void newline()

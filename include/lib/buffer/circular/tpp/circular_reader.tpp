@@ -9,15 +9,16 @@ namespace lib::buffer::circular::reader
 {
 	// build
 	template <typename T, size_t SIZE>
-	CircularBufferReader<T, SIZE>
-	CircularBufferReader<T, SIZE>::build(CircularBuffer<T, SIZE> const *buff)
+	inline void CircularBufferReader<T, SIZE>::build(CircularBuffer<T, SIZE> const *buff,
+													 CircularBufferReader<T, SIZE> *out)
 	{
-		CircularBufferReader<T, SIZE> r{};
+		out->buffer = buff;
+		out->read_idx = buff->snapshot_write_idx();
+	};
 
-		r.buffer = buff;
-		r.read_idx = buff->snapshot_write_idx();
-
-		return r;
+	template <typename T, size_t SIZE> inline size_t CircularBufferReader<T, SIZE>::w_idx_debug()
+	{
+		return buffer->snapshot_write_idx();
 	}
 
 	template <typename T, size_t SIZE>
@@ -27,6 +28,10 @@ namespace lib::buffer::circular::reader
 			return 0;
 
 		size_t w = buffer->snapshot_write_idx();
+
+		if (w < read_idx)
+			return 0;
+
 		size_t unread = w - read_idx;
 
 		if (unread > SIZE)
@@ -44,7 +49,8 @@ namespace lib::buffer::circular::reader
 		}
 
 		size_t write_idx = buffer->snapshot_write_idx();
-		size_t unread_count = write_idx - read_idx;
+
+		size_t unread_count = (write_idx >= read_idx) ? (write_idx - read_idx) : 0;
 
 		if (unread_count > SIZE)
 		{
@@ -60,8 +66,7 @@ namespace lib::buffer::circular::reader
 		return n;
 	}
 
-	template <typename T, size_t SIZE>
-	void CircularBufferReader<T, SIZE>::reset()
+	template <typename T, size_t SIZE> void CircularBufferReader<T, SIZE>::reset()
 	{
 		read_idx = buffer->snapshot_write_idx();
 	}

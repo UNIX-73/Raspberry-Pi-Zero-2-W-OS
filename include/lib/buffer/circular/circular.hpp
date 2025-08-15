@@ -15,12 +15,13 @@ namespace lib::buffer::circular
 		static constexpr size_t size = SIZE;
 
 	  private:
-		std::atomic<size_t> write_idx{0};
-		alignas(sizeof(T)) T data[SIZE];
+		alignas(64) std::atomic<size_t> write_idx{0};
+		alignas(64) T data[SIZE];
 
 	  public:
-		inline size_t snapshot_write_idx();
-		inline T get(size_t idx);
+		void init();
+		inline size_t snapshot_write_idx() const;
+		inline T get(size_t idx) const;
 		inline void get_block(size_t idx, T *out, size_t count) const;
 		inline void push(T data);
 

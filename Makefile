@@ -20,10 +20,12 @@ CPP_STL := 	-isystem /usr/aarch64-none-elf/include/c++/14.2.1 \
             -isystem /usr/lib/gcc/aarch64-none-elf/14.2.1/include-fixed \
             -isystem /usr/aarch64-none-elf/include
 
+DEPFLAGS := -MMD -MP
+
 DEFINES := -DDEBUG -DSAFE
 
-CFLAGS   := $(DEFINES) -std=c23 -Wall -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -ffreestanding -O2 -nostdlib -nostartfiles -mabi=lp64 -march=armv8-a -mtune=cortex-a53
-CXXFLAGS := $(CFLAGS) $(CPP_STL) -std=c++20 -fno-rtti -fno-exceptions -fno-threadsafe-statics -fno-use-cxa-atexit
+CFLAGS   := $(DEFINES) $(DEPFLAGS) -Wall -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -ffreestanding -O2 -nostdlib -nostartfiles -mabi=lp64 -march=armv8-a -mtune=cortex-a53
+CXXFLAGS := $(CFLAGS) $(DEPFLAGS) $(CPP_STL) -std=c++20 -fno-rtti -fno-exceptions -fno-threadsafe-statics -fno-use-cxa-atexit -mgeneral-regs-only
 INCLUDE_DIRS := -Iinclude
 
 # ============================

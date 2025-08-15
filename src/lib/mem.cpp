@@ -2,17 +2,40 @@
 
 namespace lib::mem
 {
-    void *memcpy(void *dest, const void *src, uint32_t n)
-    {
-        // simple implementation...
-        uint8_t *bdest = (uint8_t *)dest;
-        uint8_t *bsrc = (uint8_t *)src;
+	void *memset(void *dst, int c, size_t n)
+	{
+		unsigned char *d = (unsigned char *)dst;
+		unsigned char v = (unsigned char)c;
+		for (size_t i = 0; i < n; ++i)
+			d[i] = v;
+		return dst;
+	}
 
-        for (uint32_t i = 0; i < n; i++)
-        {
-            bdest[i] = bsrc[i];
-        }
+	void *memcpy(void *dst, const void *src, size_t n)
+	{
+		unsigned char *d = (unsigned char *)dst;
+		const unsigned char *s = (const unsigned char *)src;
+		for (size_t i = 0; i < n; ++i)
+			d[i] = s[i];
+		return dst;
+	}
 
-        return dest;
-    }
-}
+	void *memmove(void *dst, const void *src, size_t n)
+	{
+		unsigned char *d = (unsigned char *)dst;
+		const unsigned char *s = (const unsigned char *)src;
+		if (d == s || n == 0)
+			return dst;
+		if (d < s)
+		{
+			for (size_t i = 0; i < n; ++i)
+				d[i] = s[i];
+		}
+		else
+		{
+			for (size_t i = n; i-- > 0;)
+				d[i] = s[i];
+		}
+		return dst;
+	}
+} // namespace lib::mem

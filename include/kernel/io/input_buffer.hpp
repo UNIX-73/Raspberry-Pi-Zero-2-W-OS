@@ -1,16 +1,16 @@
 #pragma once
-#include <stdint.h>
+#include <lib/buffer/circular/buffer_reader.hpp>
 #include <stddef.h>
 
 namespace kernel::io::input_buffer
 {
-    constexpr size_t INPUT_BUFFER_SIZE = 2048;
+	constexpr size_t INPUT_BUFFER_SIZE = 1024;
 
-    // Llamado desde el irq
-    void ib_push_char(uint8_t c);
+	using UartCircular = ::lib::buffer::circular::CircularBuffer<uint8_t, INPUT_BUFFER_SIZE>;
+	using UartReader =
+		::lib::buffer::circular::reader::CircularBufferReader<uint8_t, INPUT_BUFFER_SIZE>;
 
-    void subscribe(uint64_t program_id);
-    size_t ib_read_unread(uint64_t program_id, uint8_t *buf, size_t max_len);
-    void ib_get_data(uint8_t *buf, size_t max_len);
-    void ib_reset();
-} 
+	void build_input_buffer_reader(UartReader *out);
+
+	UartCircular *get_input_buffer();
+} // namespace kernel::io::input_buffer

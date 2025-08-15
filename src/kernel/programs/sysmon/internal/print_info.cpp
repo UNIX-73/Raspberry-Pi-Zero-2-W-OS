@@ -1,109 +1,131 @@
-#include <kernel/programs/sysmon/internal/print_info.hpp>
 #include <drivers/mailbox/clock.hpp>
 #include <drivers/mailbox/temperature.hpp>
 #include <kernel/io/uart/uart_io.hpp>
+#include <kernel/programs/sysmon/internal/print_info.hpp>
 #include <lib/ascii.hpp>
 
 namespace kernel::programs::sysmon::internal
 {
-    struct SysInfo
-    {
-        // Clock frequencies (in Hz)
-        uint32_t core_clock_rate; // CT_CORE clock rate
-        uint32_t arm_clock_rate;  // CT_ARM (CPU) clock rate
-        uint32_t uart_clock_rate; // CT_UART clock rate
-        uint32_t emmc_clock_rate; // CT_EMMC clock rate
+	struct SysInfo
+	{
+		// Clock frequencies (in Hz)
+		uint32_t core_clock_rate; // CT_CORE clock rate
+		uint32_t arm_clock_rate;  // CT_ARM (CPU) clock rate
+		uint32_t uart_clock_rate; // CT_UART clock rate
+		uint32_t emmc_clock_rate; // CT_EMMC clock rate
 
-        // Temperatures (in millidegrees Celsius)
-        uint32_t soc_temp;     // SoC (CPU/GPU) temperature
-        uint32_t pcb_temp;     // SoC (CPU/GPU) temperature
-        uint32_t soc_max_temp; // Maximum allowed temperature
-        uint32_t pcb_max_temp; // Maximum allowed temperature
+		// Temperatures (in millidegrees Celsius)
+		uint32_t soc_temp;	   // SoC (CPU/GPU) temperature
+		uint32_t pcb_temp;	   // SoC (CPU/GPU) temperature
+		uint32_t soc_max_temp; // Maximum allowed temperature
+		uint32_t pcb_max_temp; // Maximum allowed temperature
 
-        // Voltages (in microvolts)
-        uint32_t core_voltage;  // Core voltage
-        uint32_t sdram_voltage; // SDRAM voltage
+		// Voltages (in microvolts)
+		uint32_t core_voltage;	// Core voltage
+		uint32_t sdram_voltage; // SDRAM voltage
 
-        // Memory sizes (in bytes)
-        uint32_t arm_mem_size; // ARM (CPU) accessible memory size
-        uint32_t vc_mem_size;  // VideoCore (GPU) accessible memory size
+		// Memory sizes (in bytes)
+		uint32_t arm_mem_size; // ARM (CPU) accessible memory size
+		uint32_t vc_mem_size;  // VideoCore (GPU) accessible memory size
 
-        // Board information
-        uint32_t board_model;    // Raspberry Pi model identifier
-        uint32_t board_revision; // Hardware revision code
-        uint64_t board_serial;   // Unique board serial number
-    };
+		// Board information
+		uint32_t board_model;	 // Raspberry Pi model identifier
+		uint32_t board_revision; // Hardware revision code
+		uint64_t board_serial;	 // Unique board serial number
+	};
 
-    static SysInfo get_sys_info()
-    {
-        SysInfo sys_info{};
+	static SysInfo get_sys_info()
+	{
+		SysInfo sys_info{};
 
-        using namespace drivers::mailbox;
-        // Clock frequencies (in Hz)
-        sys_info.core_clock_rate = clock::read_clock_rate(clock::ClockType::CT_CORE);
-        sys_info.arm_clock_rate = clock::read_clock_rate(clock::ClockType::CT_ARM);
-        sys_info.uart_clock_rate = clock::read_clock_rate(clock::ClockType::CT_UART);
-        sys_info.emmc_clock_rate = clock::read_clock_rate(clock::ClockType::CT_EMMC);
+		using namespace drivers::mailbox;
+		// Clock frequencies (in Hz)
+		sys_info.core_clock_rate = clock::read_clock_rate(clock::ClockType::CT_CORE);
+		sys_info.arm_clock_rate = clock::read_clock_rate(clock::ClockType::CT_ARM);
+		sys_info.uart_clock_rate = clock::read_clock_rate(clock::ClockType::CT_UART);
+		sys_info.emmc_clock_rate = clock::read_clock_rate(clock::ClockType::CT_EMMC);
 
-        // Temperatures (in millidegrees Celsius)
-        sys_info.soc_temp = temperature::read_firmware_temperature(temperature::TemperatureSensor::SOC_SENSOR);
-        sys_info.pcb_temp = temperature::read_firmware_temperature(temperature::TemperatureSensor::PCB_SENSOR);
-        sys_info.soc_max_temp = temperature::read_firmware_max_temperature(temperature::TemperatureSensor::SOC_SENSOR);
-        sys_info.pcb_max_temp = temperature::read_firmware_max_temperature(temperature::TemperatureSensor::PCB_SENSOR);
+		// Temperatures (in millidegrees Celsius)
+		sys_info.soc_temp =
+			temperature::read_firmware_temperature(temperature::TemperatureSensor::SOC_SENSOR);
+		sys_info.pcb_temp =
+			temperature::read_firmware_temperature(temperature::TemperatureSensor::PCB_SENSOR);
+		sys_info.soc_max_temp =
+			temperature::read_firmware_max_temperature(temperature::TemperatureSensor::SOC_SENSOR);
+		sys_info.pcb_max_temp =
+			temperature::read_firmware_max_temperature(temperature::TemperatureSensor::PCB_SENSOR);
 
-        // Voltages
-        // TODO: los demas datos
+		// Voltages
+		// TODO: los demas datos
 
-        return sys_info;
-    }
+		return sys_info;
+	}
 
-    void print_info()
-    {
-        SysInfo info = get_sys_info();
+	static inline unsigned long irq_save_mask(void)
+	{
+		unsigned long daif;
+		asm volatile("mrs %0, daif\n"	 // guardar flags
+					 "msr daifset, #2\n" // set IRQ bit -> enmascara IRQ (no FIQ)
+					 : "=r"(daif)::"memory");
+		return daif;
+	}
 
-        char text_buff[21] = {'\0'};
+	static inline void irq_restore(unsigned long daif)
+	{
+		asm volatile("msr daif, %0" ::"r"(daif) : "memory");
+	}
 
-        using namespace kernel::io::uart;
-        using namespace ::lib::ascii;
+	void print_info()
+	{
+		//	unsigned long s = irq_save_mask();
 
-        clr_screen();
+		SysInfo info = get_sys_info();
 
-        sendln("==== Raspberry Pi Zero 2 W - System Monitor ====");
+		char text_buff[21] = {'\0'};
 
-        // Clocks
-        send("Core Clock: ");
-        send(u64_to_ascii(info.core_clock_rate / 1000000, text_buff, sizeof(text_buff)));
-        sendln(" MHz");
+		using namespace kernel::io::uart;
+		using namespace ::lib::ascii;
 
-        send("ARM Clock:  ");
-        send(u64_to_ascii(info.arm_clock_rate / 1000000, text_buff, sizeof(text_buff)));
-        sendln(" MHz");
+		clr_screen();
 
-        send("UART Clock: ");
-        send(u64_to_ascii(info.uart_clock_rate / 1000000, text_buff, sizeof(text_buff)));
-        sendln(" MHz");
+		sendln("==== Raspberry Pi Zero 2 W - System Monitor ====");
 
-        send("eMMC Clock: ");
-        send(u64_to_ascii(info.emmc_clock_rate / 1000000, text_buff, sizeof(text_buff)));
-        sendln(" MHz");
+		// Clocks
+		send("Core Clock: ");
+		send(u64_to_ascii(info.core_clock_rate / 1000000, text_buff, sizeof(text_buff)));
+		sendln(" MHz");
 
-        // Temperatures
-        send("SoC Temp:  ");
-        send(u64_to_ascii(info.soc_temp / 1000, text_buff, sizeof(text_buff)));
-        sendln(" °C");
+		send("ARM Clock:  ");
+		send(u64_to_ascii(info.arm_clock_rate / 1000000, text_buff, sizeof(text_buff)));
+		sendln(" MHz");
 
-        send("PCB Temp:  ");
-        send(u64_to_ascii(info.pcb_temp / 1000, text_buff, sizeof(text_buff)));
-        sendln(" °C");
+		send("UART Clock: ");
+		send(u64_to_ascii(info.uart_clock_rate / 1000000, text_buff, sizeof(text_buff)));
+		sendln(" MHz");
 
-        send("SoC Max:   ");
-        send(u64_to_ascii(info.soc_max_temp / 1000, text_buff, sizeof(text_buff)));
-        sendln(" °C");
+		send("eMMC Clock: ");
+		send(u64_to_ascii(info.emmc_clock_rate / 1000000, text_buff, sizeof(text_buff)));
+		sendln(" MHz");
 
-        send("PCB Max:   ");
-        send(u64_to_ascii(info.pcb_max_temp / 1000, text_buff, sizeof(text_buff)));
-        sendln(" °C");
+		// Temperatures
+		send("SoC Temp:  ");
+		send(u64_to_ascii(info.soc_temp / 1000, text_buff, sizeof(text_buff)));
+		sendln(" °C");
 
-        sendln("================================================");
-    };
-}
+		send("PCB Temp:  ");
+		send(u64_to_ascii(info.pcb_temp / 1000, text_buff, sizeof(text_buff)));
+		sendln(" °C");
+
+		send("SoC Max:   ");
+		send(u64_to_ascii(info.soc_max_temp / 1000, text_buff, sizeof(text_buff)));
+		sendln(" °C");
+
+		send("PCB Max:   ");
+		send(u64_to_ascii(info.pcb_max_temp / 1000, text_buff, sizeof(text_buff)));
+		sendln(" °C");
+
+		sendln("================================================");
+
+		//	irq_restore(s);
+	};
+} // namespace kernel::programs::sysmon::internal

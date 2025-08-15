@@ -10,8 +10,10 @@ namespace lib::buffer::circular::reader
 		size_t read_idx;
 
 	  public:
-		static CircularBufferReader<T, SIZE> build(CircularBuffer<T, SIZE> const *buff);
+		static inline void build(CircularBuffer<T, SIZE> const *buff,
+								 CircularBufferReader<T, SIZE> *out);
 		inline size_t available() const;
+		inline size_t w_idx_debug();
 		size_t read_unread(T *out_buf, size_t buf_len);
 		void reset(); // Sets read idx to write idx
 	};

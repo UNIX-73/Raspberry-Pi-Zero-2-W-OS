@@ -1,23 +1,24 @@
 #pragma once
+#include <drivers/irq.hpp>
 #include <stdint.h>
 
 namespace kernel::io::uart
 {
-    void putchar(char c);
+	extern "C"
+	{
+		void send(const char *s);
+		void sendln(const char *s);
+	}
 
-    void newline();
-    void return_carriage();
+	inline void putchar(char c);
+	inline void clr_screen();
+	inline void hide_cursor();
+	inline void show_cursor();
+	inline void newline();
+	inline void return_carriage();
 
-    extern "C"
-    {
-        void send(const char *s);
-        void sendln(const char *s);
-    }
+	inline char uint32_to_char(uint32_t v);
 
-    char uint32_to_char(uint32_t v);
+} // namespace kernel::io::uart
 
-    inline void clr_screen() { send("\033[2J\033[H"); };
-    inline void hide_cursor() { kernel::io::uart::send("\x1b[?25l"); }
-    inline void show_cursor() { kernel::io::uart::send("\x1b[?25h"); }
-
-}
+#include <kernel/io/uart/uart_io.ipp>

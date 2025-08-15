@@ -60,8 +60,6 @@ __init_el1_mmu:
 
     bl kernel_main
 
-    ret
-
 .global __id_pgd_addr
 __id_pgd_addr:
     adrp x0, id_pgd

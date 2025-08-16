@@ -18,7 +18,6 @@ namespace kernel::io::uart
 	inline void return_carriage();
 
 	inline char uint32_to_char(uint32_t v);
-
 } // namespace kernel::io::uart
 
 #include <kernel/io/uart/uart_io.ipp>

@@ -4,6 +4,8 @@
 
 namespace lib::buffer::circular
 {
+	template <typename T, size_t SIZE> struct CircularQueue;
+
 	template <typename T, size_t SIZE> struct CircularBuffer
 	{
 		static_assert(SIZE > 0, "SIZE must be > 0");
@@ -23,9 +25,11 @@ namespace lib::buffer::circular
 		inline size_t snapshot_write_idx() const;
 		inline T get(size_t idx) const;
 		inline void get_block(size_t idx, T *out, size_t count) const;
-		inline void push(T data);
+		inline void push(T value);
 
 		static_assert(is_power_of_two, "SIZE must be power of 2");
+
+		friend struct CircularQueue<T, SIZE>;
 	};
 } // namespace lib::buffer::circular
 
